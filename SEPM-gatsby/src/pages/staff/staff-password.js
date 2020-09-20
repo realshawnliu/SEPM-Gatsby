@@ -1,10 +1,19 @@
 import React from "react"
 // import { css } from "@emotion/core"
-import { Link } from "gatsby"
-import Layout from "../components/staff-layout"
+// import { Link } from "gatsby"
+import Layout from "../../components/staff-layout"
 import { Form, Col, Button } from "react-bootstrap"
+import Popup from "reactjs-popup"
+import "reactjs-popup/dist/index.css"
 
-export default function StaffPassword() {
+
+
+const staffpassword = props => {
+
+  const submitHandler = () => {
+    console.log("clicked!")
+  }
+
   return (
     <div>
       <Layout>
@@ -21,11 +30,13 @@ export default function StaffPassword() {
             <Form.Label>Confirm new password</Form.Label>
             <Form.Control type="password" placeholder="Enter new password" />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          <Popup trigger={<button onClick={submitHandler}> Trigger</button>} position="right center">
+            <div>Popup content here !!</div>
+          </Popup>
         </Form>
       </Layout>
     </div>
   )
 }
+
+export default staffpassword;

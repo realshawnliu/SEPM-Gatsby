@@ -7,11 +7,11 @@ export default function Home() {
   return (
     <div>
       <p>Login page</p>
-      <Link to={`/admin-home/`}>admin </Link>
+      <Link to={`/admin/admin-home/`}>admin </Link>
 
-      <Link to={`/staff-home/`}>staff </Link>
+      <Link to={`/staff/staff-home/`}>staff </Link>
 
-      <Link to={`/manager-home/`}>manager</Link>
+      <Link to={`/manager/manager-home/`}>manager</Link>
 
       <Form>
         <Form.Group controlId="">

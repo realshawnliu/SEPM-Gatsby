@@ -15,16 +15,16 @@ function StaffLayout({ children }) {
           <SidebarHeader>Hi, Staff (staff name)</SidebarHeader>
           <Menu iconShape="square">
             <MenuItem>
-              <Link to={`/staff-home/`}>Home</Link>
+              <Link to={`/staff/staff-home/`}>Home</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/staff-request/`}>put request</Link>
+              <Link to={`/staff/staff-request/`}>put request</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/staff-history/`}>request history</Link>
+              <Link to={`/staff/staff-history/`}>request history</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/staff-password/`}>change password</Link>
+              <Link to={`/staff/staff-password/`}>change password</Link>
             </MenuItem>
             <MenuItem>
               <Link to={`/`}>login page</Link>

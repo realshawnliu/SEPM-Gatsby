@@ -15,10 +15,10 @@ export default function ManagerLayout({ children }) {
           <SidebarHeader>Hi, Manager (manager name)</SidebarHeader>
           <Menu iconShape="square">
             <MenuItem>
-              <Link to={`/manager-home/`}>Home</Link>
+              <Link to={`/manager/manager-home/`}>Home</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/manager-stafflist/`}>Staff List</Link>
+              <Link to={`/manager/manager-stafflist/`}>Staff List</Link>
             </MenuItem>
             <MenuItem>
               <Link to={`/`}>login page</Link>

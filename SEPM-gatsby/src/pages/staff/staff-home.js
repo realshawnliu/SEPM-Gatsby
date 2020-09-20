@@ -1,15 +1,15 @@
 import React from "react"
 import { css } from "@emotion/core"
 import { Link } from "gatsby"
-import Layout from "../components/manager-layout"
+import Layout from "../../components/staff-layout"
 
-export default function ManagerHome() {
+export default function StaffHome() {
   return (
     <div>
       <Layout>
-        manager home
-        <p>see all the request</p>
-        <p>approve/reject</p>
+        staff home
+        <p>see leave balance</p>
+        <p>receive email confirmation</p>
         <p>see notification</p>
       </Layout>
     </div>
