@@ -1,8 +1,10 @@
-import React from "react"
+import React, { Component } from "react"
 import { css } from "@emotion/core"
 import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
-import ShowRequests from "../showRequests"
+import ShowRequests from "../manager/showRequest"
+import style from "styled-components";
+
 
 export default function ManagerHome() {
   return (
