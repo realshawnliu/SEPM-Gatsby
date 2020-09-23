@@ -15,16 +15,16 @@ export default function AdminLayout({ children }) {
           <SidebarHeader>Hi, Admin (admin name)</SidebarHeader>
           <Menu iconShape="square">
             <MenuItem>
-              <Link to={`/admin-home/`}>Home</Link>
+              <Link to={`/admin/admin-home/`}>Home</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/admin-new/`}>create new account</Link>
+              <Link to={`/admin/admin-new/`}>create new account</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/admin-holiday/`}>add public holiday</Link>
+              <Link to={`/admin/admin-holiday/`}>add public holiday</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/admin-limit/`}>change leave limit</Link>
+              <Link to={`/admin/admin-limit/`}>change leave limit</Link>
             </MenuItem>
             <MenuItem>
               <Link to={`/`}>login page</Link>

@@ -14,6 +14,9 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.0",
+    "@wry/context": "^0.5.2",
+    "apollo-client": "^2.6.10",
     "bootstrap": "^4.5.2",
     "gatsby": "^2.24.54",
     "react": "^16.12.0",
@@ -21,7 +24,8 @@
     "react-datepicker": "^3.1.3",
     "react-dom": "^16.12.0",
     "react-pro-sidebar": "^0.4.4",
-    "react-sidebar": "^3.0.2"
+    "react-sidebar": "^3.0.2",
+    "reactjs-popup": "^2.0.3"
   },
   "devDependencies": {
     "prettier": "2.1.1"

@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "@emotion/core"
 import { Link } from "gatsby"
-import Layout from "../components/manager-layout"
+import Layout from "../../components/manager-layout"
 
 export default function ManagerList() {
   return (
