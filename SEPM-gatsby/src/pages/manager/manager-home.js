@@ -2,6 +2,7 @@ import React from "react"
 import { css } from "@emotion/core"
 import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
+import ShowRequests from "../showRequests"
 
 export default function ManagerHome() {
   return (
@@ -12,6 +13,7 @@ export default function ManagerHome() {
         <p>approve/reject</p>
         <p>see notification</p>
       </Layout>
+      <ShowRequests/>
     </div>
   )
 }
