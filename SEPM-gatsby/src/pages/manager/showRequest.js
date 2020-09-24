@@ -1,4 +1,4 @@
-import {gql, useQuery} from '@apollo/client'
+import {gql, useQuery, useMutation} from '@apollo/client'
 import React from "react"
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
@@ -58,6 +58,14 @@ const EMPLOYEES_LEAVE_REQUEST = gql`
 }
 `
 
+const APPROVE_LEAVE_REQUEST = gql`
+mutation($leave_id: uuid!) {
+  ApproveLeaveRequest(leave_id: $leave_id) {
+    affected_rows
+  }
+}
+`
+
 // const {data} = this.props;
 //     const work = data.allContentfulWork.edges;
 //     const array = work.map(({node}) => node.videoImage);
@@ -65,6 +73,8 @@ const EMPLOYEES_LEAVE_REQUEST = gql`
 
 
 export default function ShowRequests () {
+    const [approveRequest] = useMutation(APPROVE_LEAVE_REQUEST);
+
     const {loading,error,data} = useQuery(EMPLOYEES_LEAVE_REQUEST);
     if(loading) return 'loading...';
     if(error) return `Error! ${error.message}`;
@@ -103,10 +113,11 @@ export default function ShowRequests () {
        const type = req.leave_type.name
        const firstName = req.user.first_name
        const lastName = req.user.last_name
+       const leaveID = req.leave_id
 
        return (
          <>
-         <InfoWrap>
+         <InfoWrap key={leaveID}>
             <h4>Name : {firstName} {lastName}</h4>
            <DateBox>
             <p><b>From: </b> {fromDate}</p>
@@ -119,7 +130,23 @@ export default function ShowRequests () {
             <p><b>Leave type:</b> {type}</p>
 
             <BtnBox>
-              <ApproveBtn>Approve</ApproveBtn>
+              <ApproveBtn
+                onClick={(e) => {
+                  e.preventDefault();
+                    approveRequest({
+                      variables: {
+                        leave_id: leaveID
+                      },
+                    }).then((data) => {
+                      console.log("leave id" + leaveID + "request approved")
+                    })
+                    .catch((e) => {
+                      console.log(e)
+                  });
+                }}
+              > Approve
+              </ApproveBtn>
+
               <RejectBtn>Reject</RejectBtn>
             </BtnBox>
 

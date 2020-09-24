@@ -8,7 +8,7 @@ import { gql, useMutation} from '@apollo/client';
 
 //query
 const LEAVE_REQUEST = gql`
-mutation LEAVE_REQUEST(
+mutation(
   $user_id: uuid!,
   $from: date!, 
   $to: date!, 
@@ -60,12 +60,11 @@ const Wrapper = styled.div`
 // };
 
 const StaffRequest2 = () => {
-
+    const [addLeaveRequest] =useMutation(LEAVE_REQUEST);
     const [leaveStartDate, setLeaveStartDate] = useState('')
     const[leaveEndDate, setLeaveEndDate] = useState('')
     const [radioValue, setRadioValue] = useState('1');
-    const [addLeaveRequest] =useMutation(LEAVE_REQUEST);
-
+    
 // shouldnt need to hard code the value but will change later on , when i can send data 
     const radios = [
         {name: 'annual leave', value:'08a1ac22-1b41-47fd-8086-1d901eff6383'},
@@ -95,10 +94,10 @@ const StaffRequest2 = () => {
                       user_id: "d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a",
                       from: "2020-09-23",
                       to: "2020-09-27",
-                      leave_type_id: '08a1ac22-1b41-47fd-8086-1d901eff6383',
+                      leave_type_id: "08a1ac22-1b41-47fd-8086-1d901eff6383",
                       no_of_days: 7,
-                    requested_on: "",
-                    status: " "
+                      requested_on: "",
+                      status: "PENDING"
                   },
                   }).then((data) => {
                       console.log(data)
