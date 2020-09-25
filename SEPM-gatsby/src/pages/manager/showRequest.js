@@ -65,6 +65,13 @@ mutation($leave_id: uuid!) {
   }
 }
 `
+const REJECT_LEAVE_REQUEST = gql`
+mutation($leave_id: uuid!) {
+  RejectLeaveRequest(leave_id: $leave_id) {
+    affected_rows
+  }
+}
+`
 
 // const {data} = this.props;
 //     const work = data.allContentfulWork.edges;
@@ -74,6 +81,7 @@ mutation($leave_id: uuid!) {
 
 export default function ShowRequests () {
     const [approveRequest] = useMutation(APPROVE_LEAVE_REQUEST);
+    const [rejectRequest] = useMutation(REJECT_LEAVE_REQUEST);
 
     const {loading,error,data} = useQuery(EMPLOYEES_LEAVE_REQUEST);
     if(loading) return 'loading...';
@@ -147,7 +155,22 @@ export default function ShowRequests () {
               > Approve
               </ApproveBtn>
 
-              <RejectBtn>Reject</RejectBtn>
+              <RejectBtn
+                onClick={(e) => {
+                  e.preventDefault();
+                    rejectRequest({
+                      variables: {
+                      leave_id:'ecaf7229-8981-4da0-9f5e-f7f711f2e27d'
+                    },
+                  }).then((data) => {
+                    console.log("leave id " + leaveID + "request rejected")
+                  })
+                  .catch((e) => {
+                    console.log(e)
+                  });
+                }}
+              > Reject
+              </RejectBtn>
             </BtnBox>
 
           </InfoWrap>
