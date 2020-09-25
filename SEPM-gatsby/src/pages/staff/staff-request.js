@@ -92,15 +92,16 @@ const StaffRequest2 = () => {
                   addLeaveRequest({
                     variables: {
                       user_id: "d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a",
-                      from: "2020-09-23",
-                      to: "2020-09-27",
-                      leave_type_id: "08a1ac22-1b41-47fd-8086-1d901eff6383",
-                      no_of_days: 7,
+                      from: leaveStartDate,
+                      to: leaveEndDate,
+                      leave_type_id: "6c95ef3d-35e8-4cef-bfce-3dccedc4d908",
+                      no_of_days: 0,
                       requested_on: "",
-                      status: "PENDING"
+                      status: ""
                   },
                   }).then((data) => {
-                      console.log(data)
+                      console.log("request has been submitted")
+
                   })
                   .catch((e) => {
                       console.log(e)
