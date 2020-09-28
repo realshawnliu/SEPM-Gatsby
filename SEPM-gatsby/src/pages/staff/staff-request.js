@@ -162,17 +162,6 @@ const StaffRequest2 = () => {
                         Submit
                       </Button>
                     </Col>
-{/* 
-                    <div style={{ padding: '20px' }}>
-                        {loading && <p>Loading...</p>}
-                        {error && (
-                        <p>
-                            An unknown error has occured, please try again
-                            later...
-                        </p>
-                        )}
-                        {data && <p>{data.signUp.result}</p>}
-                     </div> */}
 
                   </Form.Group>
                 </Form>

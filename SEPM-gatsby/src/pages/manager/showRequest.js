@@ -88,6 +88,7 @@ export default function ShowRequests () {
     if(error) return `Error! ${error.message}`;
     if(data) console.log(data);
   
+    //just for checking - not neccessary 
     const obj = data.user[0]
     console.log(obj);
 
@@ -101,6 +102,7 @@ export default function ShowRequests () {
     console.log(dates);
     
     const datedate = fromDate.map((indv) => console.log(indv))
+    ////
        
         // data.user[0].leave_requests.map((req) =>
 
@@ -138,6 +140,7 @@ export default function ShowRequests () {
             <p><b>Leave type:</b> {type}</p>
 
             <BtnBox>
+
               <ApproveBtn
                 onClick={(e) => {
                   e.preventDefault();
