@@ -1,7 +1,7 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import React from "react"
 import styled from "styled-components"
-import { Button } from "react-bootstrap"
+// import { Button } from "react-bootstrap"
 
 //styling
 const InfoWrap = styled.div`
