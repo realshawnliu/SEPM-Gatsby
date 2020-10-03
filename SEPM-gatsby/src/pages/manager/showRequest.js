@@ -1,7 +1,6 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import React from "react"
 import styled from "styled-components"
-// import { Button } from "react-bootstrap"
 
 //styling
 const InfoWrap = styled.div`
@@ -86,19 +85,19 @@ export default function ShowRequests() {
   if (error) return `Error! ${error.message}`
   if (data) console.log(data)
 
-  const obj = data.user[0]
-  console.log(obj)
+  // const obj = data.user[0]
+  // console.log(obj)
 
-  const leaveRequest = obj.leave_requests
-  console.log(leaveRequest)
+  // const leaveRequest = obj.leave_requests
+  // console.log(leaveRequest)
 
-  const fromDate = leaveRequest.map(req => req.from)
-  console.log(fromDate)
+  // const fromDate = leaveRequest.map(req => req.from)
+  // console.log(fromDate)
 
-  const dates = leaveRequest.map(req => req.from).map(date => date)
-  console.log(dates)
+  // const dates = leaveRequest.map(req => req.from).map(date => date)
+  // console.log(dates)
 
-  const datedate = fromDate.map(indv => console.log(indv))
+  // const datedate = fromDate.map(indv => console.log(indv))
 
   // data.user[0].leave_requests.map((req) =>
 
@@ -149,47 +148,53 @@ export default function ShowRequests() {
                 <b>Leave type:</b> {type}
               </p>
 
-              <BtnBox>
-                <ApproveBtn
-                  onClick={e => {
-                    e.preventDefault()
-                    approveRequest({
-                      variables: {
-                        leave_id: leaveID,
-                      },
-                    })
-                      .then(data => {
-                        console.log("leave id" + leaveID + "request approved")
+              {status == "PENDING" ? (
+                <BtnBox>
+                  <ApproveBtn
+                    onClick={e => {
+                      e.preventDefault()
+                      approveRequest({
+                        variables: {
+                          leave_id: leaveID,
+                        },
                       })
-                      .catch(e => {
-                        console.log(e)
-                      })
-                  }}
-                >
-                  {" "}
-                  Approve
-                </ApproveBtn>
+                        .then(data => {
+                          console.log("leave id" + leaveID + "request approved")
+                        })
+                        .catch(e => {
+                          console.log(e)
+                        })
+                    }}
+                  >
+                    {" "}
+                    Approve
+                  </ApproveBtn>
 
-                <RejectBtn
-                  onClick={e => {
-                    e.preventDefault()
-                    rejectRequest({
-                      variables: {
-                        leave_id: "ecaf7229-8981-4da0-9f5e-f7f711f2e27d",
-                      },
-                    })
-                      .then(data => {
-                        console.log("leave id " + leaveID + "request rejected")
+                  <RejectBtn
+                    onClick={e => {
+                      e.preventDefault()
+                      rejectRequest({
+                        variables: {
+                          leave_id: "ecaf7229-8981-4da0-9f5e-f7f711f2e27d",
+                        },
                       })
-                      .catch(e => {
-                        console.log(e)
-                      })
-                  }}
-                >
-                  {" "}
-                  Reject
-                </RejectBtn>
-              </BtnBox>
+                        .then(data => {
+                          console.log(
+                            "leave id " + leaveID + "request rejected"
+                          )
+                        })
+                        .catch(e => {
+                          console.log(e)
+                        })
+                    }}
+                  >
+                    {" "}
+                    Reject
+                  </RejectBtn>
+                </BtnBox>
+              ) : (
+                ""
+              )}
             </InfoWrap>
           </>
         )

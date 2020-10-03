@@ -2,6 +2,8 @@ import React from "react"
 // import { css } from "@emotion/core"
 // import { Link } from "gatsby"
 import Layout from "../../components/staff-layout"
+import ShowBalance from "../staff/showBalance"
+
 
 export default function StaffHome() {
   return (
@@ -12,6 +14,7 @@ export default function StaffHome() {
         <p>receive email confirmation</p>
         <p>see notification</p>
       </Layout>
+      <ShowBalance />
     </div>
   )
 }
