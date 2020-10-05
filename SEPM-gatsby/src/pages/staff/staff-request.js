@@ -90,7 +90,8 @@ const StaffRequest2 = () => {
         {/* <Mutation mutation={LEAVE_REQUEST}>
               {(addLeaveRequest,{loading, error, data}) => (
                    */}
-        <Form
+    
+            <Form
           onSubmit={e => {
             e.preventDefault()
             addLeaveRequest({

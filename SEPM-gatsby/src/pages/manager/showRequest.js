@@ -79,13 +79,13 @@ const REJECT_LEAVE_REQUEST = gql`
 export default function ShowRequests() {
   const [approveRequest] = useMutation(APPROVE_LEAVE_REQUEST)
   const [rejectRequest] = useMutation(REJECT_LEAVE_REQUEST)
-
+  
   const { loading, error, data } = useQuery(EMPLOYEES_LEAVE_REQUEST)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
   if (data) console.log(data)
-
-  // const obj = data.user[0]
+  
+   // const obj = data.user[0]
   // console.log(obj)
 
   // const leaveRequest = obj.leave_requests
