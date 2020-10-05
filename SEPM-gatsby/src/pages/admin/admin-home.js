@@ -1,7 +1,9 @@
 import React from "react"
-import { css } from "@emotion/core"
-import { Link } from "gatsby"
+// import { css } from "@emotion/core"
+// import { Link } from "gatsby"
 import Layout from "../../components/admin-layout"
+import ShowUser from "../admin/showUser"
+
 
 export default function AdminHome() {
   return (
@@ -12,6 +14,8 @@ export default function AdminHome() {
         <p>deactivate account</p>
         <p>change the roles of users</p>
       </Layout>
+      <ShowUser/>
+
     </div>
   )
 }
