@@ -2,13 +2,13 @@ import React from "react"
 // import { css } from "@emotion/core"
 // import { Link } from "gatsby"
 import Layout from "../../components/staff-layout"
-import { Form, Col, Button } from "react-bootstrap"
-import Popup from "reactjs-popup"
+// import { Form, Col, Button } from "react-bootstrap"
+// import Popup from "reactjs-popup"
 import "reactjs-popup/dist/index.css"
 import style from "styled-components"
-import {gql , useMutation} from '@apollo/client';
-import useForm from "../staff/useForm";
-import PropTypes from 'prop-types';
+// import {gql , useMutation} from '@apollo/client';
+// import useForm from "../staff/useForm";
+// import PropTypes from 'prop-types';
 import Reset from '../staff/Reset'
 
 //style
