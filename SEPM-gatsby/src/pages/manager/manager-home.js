@@ -5,7 +5,7 @@ import React, {
 // import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
-// import style from "styled-components";
+import style from "styled-components";
 
 const Wrapper = style.div`
   display: flex;
