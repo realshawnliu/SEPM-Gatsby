@@ -1,9 +1,11 @@
-import React, { Component } from "react"
-import { css } from "@emotion/core"
-import { Link } from "gatsby"
+import React, { 
+  // Component 
+} from "react"
+// import { css } from "@emotion/core"
+// import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
-import style from "styled-components";
+// import style from "styled-components";
 
 const Wrapper = style.div`
   display: flex;

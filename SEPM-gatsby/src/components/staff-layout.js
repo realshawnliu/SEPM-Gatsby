@@ -1,11 +1,16 @@
 import React from "react"
-import { css } from "@emotion/core"
+// import { css } from "@emotion/core"
 import { Link } from "gatsby"
-import { Col, Container, Row } from "react-bootstrap"
+// import { Col, Container, Row } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar"
+import { ProSidebar, Menu, MenuItem, 
+  // SubMenu 
+} from "react-pro-sidebar"
 import "react-pro-sidebar/dist/css/styles.css"
-import { SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar"
+import { SidebarHeader, 
+  // SidebarFooter, 
+  // SidebarContent 
+} from "react-pro-sidebar"
 
 function StaffLayout({ children }) {
   return (

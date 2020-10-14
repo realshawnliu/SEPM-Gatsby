@@ -1,9 +1,15 @@
 import React from "react"
-import { Form, Col, Button, FormControl } from "react-bootstrap"
+import { Form, 
+  // Col, 
+  Button, 
+  // FormControl 
+} from "react-bootstrap"
 import style from "styled-components"
-import {gql , useMutation, useQuery} from '@apollo/client';
+import {gql , useMutation, 
+  // useQuery
+} from '@apollo/client';
 import useForm from "./useForm";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 //style
 
 const Error = style.h2`
