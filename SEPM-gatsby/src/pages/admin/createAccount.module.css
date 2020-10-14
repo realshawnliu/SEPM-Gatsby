@@ -1,0 +1,11 @@
+.success{
+    border-color: green;
+    background: green;
+    color: black;
+}
+
+.fail{
+    border-color:red;
+    background-color: red;
+    color:black;
+}
