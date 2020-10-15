@@ -65,21 +65,24 @@ const LoginPage = () => {
         else {
           if (role === "staff") {
             loginCheck = true
-            window.open(`/staff/staff-home/`)
+            var newWindow = window.open(`/staff/staff-home/`)
+            newWindow.userData = data.user[i]
           }
           else if (role === "manager"
             && data.user[i].role_manager === true) {
             loginCheck = true
-            window.open(`/manager/manager-home/`)
+            var newWindow = window.open(`/manager/manager-home/`)
+            newWindow.userData = data.user[i]
           }
           else if (role === "admin"
             && data.user[i].role_admin === true) {
             loginCheck = true
-            window.open(`/admin/admin-home/`)
+            var newWindow = window.open(`/admin/admin-home/`)
+            newWindow.userData = data.user[i]
           }
         }
       }
-      else{
+      if (loginCheck === false) {
         console.log("login unsuccessfully")
       }
     }
@@ -95,9 +98,9 @@ const LoginPage = () => {
 
   return (
     <Main>
-      {/* <Link to={`/admin/admin-home/`}>admin </Link>
+      <Link to={`/admin/admin-home/`}>admin </Link>
       <Link to={`/staff/staff-home/`}>staff </Link>
-      <Link to={`/manager/manager-home/`}>manager</Link> */}
+      <Link to={`/manager/manager-home/`}>manager</Link>
 
       <h1>Login Page</h1>
       <Formik

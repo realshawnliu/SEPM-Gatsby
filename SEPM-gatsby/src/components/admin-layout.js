@@ -36,6 +36,9 @@ export default function AdminLayout({ children }) {
               <Link to={`/admin/admin-limit/`}>change leave limit</Link>
             </MenuItem>
             <MenuItem>
+              <Link to={`/staff/staff-home/`}>switch to staff</Link>
+            </MenuItem>
+            <MenuItem>
               <Link to={`/`}>login page</Link>
             </MenuItem>
           </Menu>
