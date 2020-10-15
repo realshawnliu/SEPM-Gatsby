@@ -105,7 +105,7 @@ export default function ShowHistory() {
                 <b>Leave type:</b> {type}
               </p>
 
-              {status == "PENDING" ? (
+              {status === "PENDING" ? (
                 <BtnBox>
                   <CancelBtn
                     onClick={e => {
