@@ -33,32 +33,46 @@ const ALL_USER = gql`
 
 const confirmationMessage = "";
 
-
-// loginHandler = ( email, password)=>{}
-
+let passwordCheck = false;
 
 function Login() {
 
-  const { inputs, handleLogin, loginForm } = LoginForm({
-    email: '',
-    password: '',
-  });
+const { loading, error, data } = useQuery(ALL_USER)
+// if(loading) return 'loading';
+// if(error) {​​​​​​​return error.message}​​​​​​​;
+if (data) console.log(data)
 
+const userLength = data.user.length
 
-  const { loading, error, data } = useQuery(ALL_USER)
-  if (loading) return "loading..."
-  if (error) return `Error! ${error.message}`
-  // if (data) console.log(data)
+const loginHandler = ( email, password )=>{
+  for (let i = 0; i < userLength; i++) {
+    // const element = data.user[i];
+    // console.log(element)
+    if(email === data.user[i].email 
+      && password === data.user[i].password){
+      passwordCheck = true
+      console.log("check: ")
 
+      console.log(passwordCheck)
 
-  for (let i = 0; i < data.user.length; i++) {
-    const element = data.user[i];
-    console.log(element)
+    }
   }
+}
 
+  // for (let i = 0; i < data.user.length; i++) {
+  //   const element = data.user[i];
+  //   console.log(element)
+  // }
+
+
+  const email = "test@gmail.com"
+  const password = "qwerty"
+  
+  loginHandler(email, password)
 
 
   return (
+
     <div>
       <p>Login page</p>
       <Link to={`/admin/admin-home/`}>admin </Link>
@@ -67,17 +81,14 @@ function Login() {
 
       <Link to={`/manager/manager-home/`}>manager</Link>
 
-
+      
      
 
       <Form
         controlId=""
-
-        onSubmit={async e => {
+        onSubmit={e => {
           e.preventDefault();
-          // const res = await loginHandle();
-          // console.log(res);
-          loginForm();
+          loginHandler(email, password)
           //display message on front page to show confirm 
         }
         }
@@ -92,28 +103,26 @@ function Login() {
         <div><Error error={error} /></div>
 
 
-        <Form.Group controlId="">
+        <Form.Group controlId="email">
           <Form.Label>Enter your email</Form.Label>
           <Form.Control
             type="email"
             name="email"
-            icon="user circle"
             placeholder="Email"
-            value={inputs.email}
-            onChange={handleLogin}
+            // value={email}
+            // value="test@gmail.com"
             required
           />
         </Form.Group>
 
-        <Form.Group controlId="">
+        <Form.Group controlId="password">
           <Form.Label>Enter your password</Form.Label>
           <Form.Control
             type="password"
             name="password"
-            icon="user circle"
             placeholder="password"
-            value={inputs.password}
-            onChange={handleLogin}
+            // value={password}
+            // value="qwerty"
             required
           />
         </Form.Group>
