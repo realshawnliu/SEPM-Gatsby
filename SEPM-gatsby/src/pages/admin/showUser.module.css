@@ -1,0 +1,43 @@
+.selectVisible{
+    visibility: visible;
+    padding-left: 5rem;
+}
+
+.hideSelect{
+    visibility: hidden;
+}
+
+.trueRole{
+    background: #732bc4;
+    border-radius: 4px;
+    border: none;
+    margin: 1em;
+
+}
+
+.falseRole{
+    background: #beabd4;
+    border-radius: 4px;
+    border: none;
+    margin: 1em;
+}
+
+.changeRole{
+    background: #9E9999;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    margin: 1em;
+}
+
+.success{
+    border-color: green;
+    background: green;
+    color: black;
+}
+
+.fail{
+    border-color:red;
+    background-color: red;
+    color:black;
+}

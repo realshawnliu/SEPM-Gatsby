@@ -50,6 +50,14 @@ function FormikControl(props) {
 }
 
 const CreateAccount = () => {
+    // const {
+    //     values,
+    //     handleChange,
+    //     handleBlur,
+    //     handleSubmit,
+    //     setFieldValue
+    //   } = props;
+
     const [addAccount] =useMutation(NEW_USER);
     let adminRoleB = false;
     let managerRoleB = false;
@@ -154,28 +162,28 @@ const CreateAccount = () => {
                         await new Promise ((r) => setTimeout(r,500));
                     
                         let output={};
-                    
-                    try {
-                        const response = await addAccount({
-                            variables: {
-                            first_name: values.firstName,
-                            last_name: values.lastName,
-                            email: values.email,
-                            manager_id: managerIdValue,
-                            password: values.password,
-                            role_admin: adminRoleB,
-                            role_manager: managerRoleB
-                        }}).then((data) => {
-                            sent = true;
-                        })
-                    }
-                     catch (err) {
-                        output.message = err.graphQLErrors[0].message 
-                        console.log(output.message)
-                        output.type=`error`
-                        output.classes = style.fail
+                        
+                        try {
+                            const response = await addAccount({
+                                variables: {
+                                first_name: values.firstName,
+                                last_name: values.lastName,
+                                email: values.email,
+                                manager_id: managerIdValue,
+                                password: values.password,
+                                role_admin: adminRoleB,
+                                role_manager: managerRoleB
+                            }}).then((data) => {
+                                sent = true;
+                            })
+                        }
+                        catch (err) {
+                            output.message = err.graphQLErrors[0].message 
+                            console.log(output.message)
+                            output.type=`error`
+                            output.classes = style.fail
 
-                    }
+                        }
 
                     
         
@@ -191,6 +199,7 @@ const CreateAccount = () => {
                     }}
                 >
                     {({ isSubmitting, status, handleChange, handleBlur, values}) => (
+                        
                         <Form>
                             <FormWrap>
                                 <label>First name</label>
