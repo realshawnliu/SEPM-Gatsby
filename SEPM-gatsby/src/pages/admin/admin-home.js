@@ -13,7 +13,7 @@ const MainWrap = styled.div`
   display:flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 80%;
   padding 3em;
 `
 
@@ -23,12 +23,7 @@ export default function AdminHome() {
     <BigWrap>
       <Layout/>
       <MainWrap>
-        <h1>ADMIN HOME</h1>   
-        <nav>
-          <p>see the list of all users</p>
-          <p>deactivate account</p>
-          <p>change the roles of users</p>
-        </nav>
+        <h1>ADMIN HOME</h1>  
         <ShowUser/>
       </MainWrap>
     </BigWrap>

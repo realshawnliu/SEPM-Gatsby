@@ -4,15 +4,21 @@ import{ Link, navigate} from "gatsby"
 import styled from "styled-components"
 import style from "../admin/showUser.module.css"
 import Layout from "../../components/admin-layout"
-import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
+import { Formik, Form, Field, errors, ErrorMessage, setFieldValue } from 'formik';
 
 const MainWrap = styled.div`
     display:flex;
     flex-direction: column;
+    width: 100%;
+    padding: 3em;
 `
 const Wrap=styled.div`
     display:flex;
     flex-direction: row;
+   
+`
+const TextWrap = styled.div`
+
 `
 
 const UPDATE_ROLE = gql`
@@ -51,13 +57,13 @@ export default ({location}) => {
         <Wrap>
       
             <Layout></Layout>
+            
                 
-            <h1>Change role for {data.user[0].first_name}</h1>
-
             <Formik
+                enableReinitialize
                 initialValues={{
-                    manager: data.user[0].role_manager === false? ``: `checked`,
-                    admin: data.user[0].role_admin === false? ``: `checked`,
+                    manager: ``,
+                    admin: ``,
                     manager_Num: data.user[0].managerid === null? null: data.user[0].managerid
                 }}
 
@@ -89,17 +95,23 @@ export default ({location}) => {
                 }}
             >
 
-                {({isSubmitting, status}) => (
+                {({isSubmitting, status, handleChange, values}) => (
                     <Form>
                         <MainWrap>
+                        <TextWrap>
+                            <h1>Change role for {data.user[0].first_name}</h1>
+                            <h3>current role: 
+                                <p> {data.user[0].role_manager === false? ``: `manager`} </p>
+                                <p>{data.user[0].role_admin === false? ``: `admin`} </p>
+                                <p>{data.user[0].role_admin === false && data.user[0].role_mananger === false? `normal staff`: ``}</p>
+                            
+                            </h3>
+                        </TextWrap>
                             <label>Manager</label>
-                            <Field type="checkbox" name="manager" ></Field>
+                            <Field type="checkbox" name="manager" {...data.user[0].role_manager === false? ``: `checked`}></Field>
 
                             <label>Admin</label>
-                            <Field type="checkbox" name="admin" ></Field>
-
-                            <label>Staff</label>
-                            <Field type="checkbox" name="staff" ></Field>
+                            <Field type="checkbox" name="admin" {...data.user[0].role_manager === false? ``: `checked`}></Field>
 
                             <label>Please provide manager id, if the role is only staff</label>
                             <label>Manager id</label>
