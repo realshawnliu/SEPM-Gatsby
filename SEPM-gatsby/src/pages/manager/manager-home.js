@@ -5,13 +5,14 @@ import React, {
 // import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
-// import style from "styled-components";
+import styled from "styled-components";
+import {Link, graphql} from "gatsby"
 
-const Wrapper = style.div`
+const Wrapper = styled.div`
   display: flex;
 `
 
-const RequestWrap = style.div`
+const RequestWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -22,11 +23,14 @@ export default function ManagerHome() {
   return (
     <div>
       <Wrapper>
-        <Layout>
-          manager home
-          <p>see all the request</p>
-          <p>see notification</p>
-        </Layout>
+        <Layout/>
+        <nav>
+            <ul>
+              <Link>manager home</Link>
+              <Link>see all request</Link>
+              <Link>see notification</Link>
+            </ul> 
+          </nav>
 
         <RequestWrap>
           <ShowRequests/>

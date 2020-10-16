@@ -85,27 +85,7 @@ export default function ShowRequests() {
   if (error) return `Error! ${error.message}`
   if (data) console.log(data)
   
-   // const obj = data.user[0]
-  // console.log(obj)
-
-  // const leaveRequest = obj.leave_requests
-  // console.log(leaveRequest)
-
-  // const fromDate = leaveRequest.map(req => req.from)
-  // console.log(fromDate)
-
-  // const dates = leaveRequest.map(req => req.from).map(date => date)
-  // console.log(dates)
-
-  // const datedate = fromDate.map(indv => console.log(indv))
-
-  // data.user[0].leave_requests.map((req) =>
-
-  //     req.from).map((fromDates) =>{
-  //       return (
-  //         <p>{fromDates}</p>
-  //       )
-  //       })
+ 
   return (
     <>
       {data.user[0].leave_requests.map(req => {
