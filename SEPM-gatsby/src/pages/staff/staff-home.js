@@ -33,7 +33,7 @@ export default function StaffHome() {
         {/* <StaffNoti /> */}
       </Layout>
 
-      <ShowBalance/>
+      <ShowBalance userData={window.userData}/>
     </div>
   )
 }

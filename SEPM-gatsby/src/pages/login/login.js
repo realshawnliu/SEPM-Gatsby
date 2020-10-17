@@ -9,6 +9,8 @@ import {
 } from '@apollo/client';
 // import PropTypes from 'prop-types';
 import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const Error = style.h2`
   color: red;
@@ -86,7 +88,12 @@ const LoginPage = () => {
         console.log("login successfully")
       }
       else {
-        console.log("login unsuccessfully")
+        console.log("login failed")
+        // return(
+        //   <Popup trigger={<button> Trigger</button>} position="right center">
+        //   <div>Popup content here !!</div>
+        // </Popup>
+        // )
       }
     }
   }

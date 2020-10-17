@@ -30,7 +30,7 @@ const Staffpassword = () => (
     <Wrapper>
       <Layout/>
       <FormWrap>
-        <Reset />
+        <Reset userData={window.userData}/>
       </FormWrap>
     </Wrapper>
   

@@ -31,10 +31,11 @@ mutation($user_id: uuid!, $password: String!) {
 }
 `;
 
-const username = "\"068dfbe3-e725-4ab2-aac9-307dd6659b22\"";
 const confirmationMessage = "";
 
-function Reset() {
+function Reset({ userData }) {
+  const userID = userData.user_id
+
 
   const { inputs, handleChange, resetForm } = useForm({
     password: '',
@@ -44,7 +45,7 @@ function Reset() {
   const [resetPassword, { error, loading, data }] = useMutation(UPDATE_PASSWORD, {
     variables: {
       //currently hardcoded 
-      user_id: "068dfbe3-e725-4ab2-aac9-307dd6659b22",
+      user_id: userID,
       password: inputs.password,
     }
   })
