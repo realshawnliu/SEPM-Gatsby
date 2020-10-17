@@ -9,6 +9,8 @@ import {
 } from '@apollo/client';
 // import PropTypes from 'prop-types';
 import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const Error = style.h2`
   color: red;
@@ -59,6 +61,8 @@ const LoginPage = () => {
     for (let i = 0; i < data.user.length; i++) {
       if (email === data.user[i].email
         && password === data.user[i].password) {
+
+          console.log(data.user[i])
         if (data.user[i].acct_active === false) {
           console.log("this account is deactivate")
         }
@@ -86,7 +90,12 @@ const LoginPage = () => {
         console.log("login successfully")
       }
       else {
-        console.log("login unsuccessfully")
+        console.log("login failed")
+        // return(
+        //   <Popup trigger={<button> Trigger</button>} position="right center">
+        //   <div>Popup content here !!</div>
+        // </Popup>
+        // )
       }
     }
   }

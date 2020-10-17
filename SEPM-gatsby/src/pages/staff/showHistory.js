@@ -25,8 +25,6 @@ const DateBox = styled.div`
   flex-direction: space-evenly;
 `
 
-
-
 const CANCEL_LEAVE_REQUEST = gql`
   mutation($leave_id: uuid!) {
     CancelLeaveRequest(leave_id: $leave_id) {
@@ -35,7 +33,7 @@ const CANCEL_LEAVE_REQUEST = gql`
   }
 `
 
-  const LEAVE_HISTORY = gql`{
+const LEAVE_HISTORY = gql`{
     leave_request {
       user_id
       to
@@ -53,7 +51,7 @@ const CANCEL_LEAVE_REQUEST = gql`
 `
 
 export default function ShowHistoryBlock({ userData }) {
-  let userID = userData.user_id
+  const userID = userData.user_id
 
   const [cancelRequest] = useMutation(CANCEL_LEAVE_REQUEST)
 
@@ -62,6 +60,22 @@ export default function ShowHistoryBlock({ userData }) {
   if (error) return `Error! ${error.message}`
   if (data) console.log(data)
 
+  // console.log
+  let hasRequest = false;
+
+  for (let i = 0; i < data.length; i++) {
+    if (userID === data[i].user_id) {
+      hasRequest = true
+    }
+  }
+
+  if (hasRequest === false) {
+    return (
+      <InfoWrap>
+        <p>no request history</p>
+      </InfoWrap>
+    )
+  }
 
   return (
     <>
@@ -73,65 +87,68 @@ export default function ShowHistoryBlock({ userData }) {
         const days = req.no_of_days
         const type = req.leave_type.name
         const leaveID = req.leave_id
+        const requestUserID = req.user_id
 
-        return (
-          <>
-            <InfoWrap key={leaveID}>
-              <DateBox>
+        if (requestUserID === userID) {
+          return (
+            <>
+              <InfoWrap key={leaveID}>
+                <DateBox>
+                  <p>
+                    <b>From: </b> {fromDate}
+                  </p>
+                  <p>
+                    <b>To: </b> {toDate}{" "}
+                  </p>
+                </DateBox>
+
                 <p>
-                  <b>From: </b> {fromDate}
+                  <b>Status:</b> {status}
                 </p>
                 <p>
-                  <b>To: </b> {toDate}{" "}
+                  {" "}
+                  <b>requested on:</b> {requestDate}
                 </p>
-              </DateBox>
+                <p>
+                  <b>no. of days:</b> {days}
+                </p>
+                <p>
+                  <b>Leave type:</b> {type}
+                </p>
 
-              <p>
-                <b>Status:</b> {status}
-              </p>
-              <p>
-                {" "}
-                <b>requested on:</b> {requestDate}
-              </p>
-              <p>
-                <b>no. of days:</b> {days}
-              </p>
-              <p>
-                <b>Leave type:</b> {type}
-              </p>
-
-              {status === "PENDING" ? (
-                <BtnBox>
-                  <CancelBtn
-                    onClick={e => {
-                      e.preventDefault()
-                      cancelRequest({
-                        variables: {
-                          leave_id: userID,
-                        },
-                      })
-                        .then(data => {
-                          console.log(
-                            "leave id " +
-                            userID +
-                            "request cancelled"
-                          )
+                {status === "PENDING" ? (
+                  <BtnBox>
+                    <CancelBtn
+                      onClick={e => {
+                        e.preventDefault()
+                        cancelRequest({
+                          variables: {
+                            leave_id: userID,
+                          },
                         })
-                        .catch(e => {
-                          console.log(e)
-                        })
-                    }}
-                  >
-                    {" "}
+                          .then(data => {
+                            console.log(
+                              "leave id " +
+                              userID +
+                              "request cancelled"
+                            )
+                          })
+                          .catch(e => {
+                            console.log(e)
+                          })
+                      }}
+                    >
+                      {" "}
                     Cancel
                   </CancelBtn>
-                </BtnBox>
-              ) : (
-                  ""
-                )}
-            </InfoWrap>
-          </>
-        )
+                  </BtnBox>
+                ) : (
+                    ""
+                  )}
+              </InfoWrap>
+            </>
+          )
+        }
       })}
     </>
   )
