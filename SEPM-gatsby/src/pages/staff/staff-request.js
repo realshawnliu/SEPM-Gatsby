@@ -1,9 +1,13 @@
 import React, { useState } from "react"
 import Layout from "../../components/staff-layout"
-import { Form, Col, Button, ButtonGroup } from "react-bootstrap"
+import { Col, Button, ButtonGroup } from "react-bootstrap"
 import styled from "styled-components"
 import { gql, useMutation } from "@apollo/client"
 import style from "../admin/createAccount.module.css";
+import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker';
+
 
 //styling
 const FormWrap = styled.div`
@@ -19,7 +23,6 @@ const BtnGroup = styled.div`
   flex-direction: column;
 
 `
-
 
 //query
 const LEAVE_REQUEST = gql`
@@ -46,10 +49,6 @@ const LEAVE_REQUEST = gql`
   }
 `
 
-// const client = new ApolloClient({
-//   uri: 'https://fresh-jackal-96.hasura.app/v1/graphql',
-//   cache: new InMemoryCache()
-// });
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,6 +56,7 @@ const Wrapper = styled.div`
 `
 
 const StaffRequest2 = () => {
+  let sent = false;
   const [addLeaveRequest] = useMutation(LEAVE_REQUEST)
   const [leaveStartDate, setLeaveStartDate] = useState("")
   const [leaveEndDate, setLeaveEndDate] = useState("")
@@ -79,6 +79,8 @@ const StaffRequest2 = () => {
     { name: "blood_donor", value: "2e58c789-b8b8-41ce-9d01-0a6d54cc7d39" },
   ]
 
+  const data = window.userData.user_id;
+
   return (
     <div className="mb-2">
       <Wrapper>
@@ -90,90 +92,139 @@ const StaffRequest2 = () => {
               {(addLeaveRequest,{loading, error, data}) => (
                    */}
         <FormWrap>
-          <Form
-            onSubmit={e => {
-              e.preventDefault()
-              addLeaveRequest({
-                variables: {
-                  user_id: "d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a",
-                  from: leaveStartDate,
-                  to: leaveEndDate,
-                  leave_type_id: "6c95ef3d-35e8-4cef-bfce-3dccedc4d908",
-                  no_of_days: 0,
-                  requested_on: "",
-                  status: "",
-                },
-              })
-                .then(data => {
-                  console.log("request has been submitted")
+          <Formik
+            initialValues={{
+              leaveStartDate: new Date(),
+              leaveEndDate: new Date(),
+              typeOfLeave: ``
+            }}
+
+            validate={(values) => {
+              let errors= {}
+
+              if(!values.leaveStartDate){
+                  errors.leaveStartDate=`Leave start date cannot be empty`
+              }
+              else if(!values.leaveEndDate){
+                  errors.leaveEndDate = `Leave End date cannot be empty`
+              }
+              else if(!values.tyepOfLeave){
+                  errors.typeOfLeave = `Please choose a leave type`
+              }
+              return errors 
+            }}
+
+            onSubmit={ async (values, actions) => {
+              let output={};
+
+              console.log(values.leaveStartDate);
+              console.log(values.leaveEndDate);
+              console.log(values.typeOfLeave);
+
+              try{
+                addLeaveRequest({
+                  variables: {
+                    user_id: "user",
+                    from: values.leaveStartDate,
+                    to: values.leaveEndDate,
+                    leave_type_id: values.typeOfLeave,
+                    no_of_days: 0,
+                    requested_on: "",
+                    status: "",
+                  },
                 })
-                .catch(e => {
-                  console.log(e)
-                })
+                  .then(data => {
+                    console.log("request has been submitted")
+                    sent = true;
+                  })
+              }
+              catch(err){
+                output.message = err.graphQLErrors[0].message 
+                console.log(output.message)
+                output.type=`error`
+                output.classes = style.fail
+              }
+
+              if (sent === true ){
+                output.message=`Account successfully created`
+                output.type=`success`
+                output.classes = style.success
+                actions.resetForm()
+            }
+            actions.setStatus(output)
+            actions.setSubmitting(true)
+        
             }}
           >
-          <h1>Enter the Details of leave</h1>
+
+            {({ isSubmitting, status, handleChange, handleBlur, values }) => (
+
+              <Form>
+              <h1>Enter the Details of leave</h1>
+            
+                  <label><b>Leave Start</b></label>
+                 
+                  <DatePicker className={style.input} selected={leaveStartDate} name="leaveStartDate" onChange={date=> setLeaveStartDate(date)}/>
+                  
+                  {/* <input
+                    className={style.input}
+                    type="text"
+                    name="leaveStartDate"
+                    value={leaveStartDate}
+                    onChange={event => setLeaveStartDate(event.target.value)}
+                    required
+                  /> */}
+            
+                  <label>
+                    <b>Leave End</b>
+                  </label>
+
+                  <DatePicker className={style.input} selected ={leaveEndDate} name="leaveEndDate" onChange={date=> setLeaveEndDate(date)}/>
+
+                  {/* <input
+                    className={style.input}
+                    type="text"
+                    name="leaveEndDate"
+                    value={leaveEndDate}
+                    onChange={event => setLeaveEndDate(event.target.value)}
+                    required
+                  /> */}
+                  
+                  <BtnGroup>
+                  <label><b>Leave Type</b></label>
+                    {radios.map(radio => (
+                      <ButtonGroup toggle className="mb-3">
+                       
+                          <Field
+                            className={style.input}
+                            type="radio"
+                            key={radio.uniqueId}
+                            name="tyepOfLeave"
+                            value={radio.value}
+                            checked={radioValue === radio.value}
+                            onChange={event => {
+                              setRadioValue(event.target.value)
+                            }}
+                          ></Field>
+                          {radio.name}
+                        
+                      </ButtonGroup>
+                    ))}
+                  </BtnGroup>
+
+                  <ErrorMessage name='leaveStartDate' className={style.fail} component='div'/>        
+                  <ErrorMessage name='leaveEndDate' className={style.fail} component='div'/>
+              
+                  <button className={style.submitBtn} type="submit" disabled={isSubmitting}>
+                    Submit
+                  </button>
+
+                  {status && <div className={status.classes}>{status.message}</div>}
+                 
+              </Form>
+            )}
+          </Formik>
           
-            <Form.Group controlId="">
-              <label><b>Leave Start</b></label>
-              <input
-                className={style.input}
-                type="text"
-                name="leaveStartDate"
-                value={leaveStartDate}
-                onChange={event => setLeaveStartDate(event.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="">
-              <Form.Label>
-                <b>Leave End</b>
-              </Form.Label>
-              <input
-                className={style.input}
-                type="text"
-                name="leaveEndDate"
-                value={leaveEndDate}
-                onChange={event => setLeaveEndDate(event.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="">
-
-              <Form.Label>
-                <b>Leave Type</b>
-              </Form.Label>
-
-              <BtnGroup>
-                {radios.map(radio => (
-                  <ButtonGroup toggle className="mb-3">
-                    <div class="form-check">
-                      <input
-                        type="radio"
-                        key={radio.uniqueId}
-                        name="tyepOfLeave"
-                        value={radio.value}
-                        checked={radioValue === radio.value}
-                        onChange={event => {
-                          setRadioValue(event.target.value)
-                        }}
-                      ></input>
-                      {radio.name}
-                    </div>
-                  </ButtonGroup>
-                ))}
-              </BtnGroup>
-             
-
-              <Col xs="auto">
-                <button className={style.submitBtn} type="submit">
-                  Submit
-                </button>
-              </Col>
-            </Form.Group>
-          </Form>
         </FormWrap>
       </Wrapper>
     </div>
