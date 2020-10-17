@@ -12,9 +12,9 @@ const LIST_MANAGER = gql`{
 }
 `;
 
-const ManagerDropDown = (props) => {
+const ManagerDropDown = () => {
+
     const {loading,error,data} = useQuery(LIST_MANAGER);
-    const {label, name, option, ...rest} = props
     if(loading) return 'loading';
     if(error) {return error.message};
     
@@ -22,11 +22,7 @@ const ManagerDropDown = (props) => {
     return(
         data.user.map((ele) => {
             return(
-                // <option key={ele.user_id} label={ele.user_id} value={ele.user_id}/>
-            <label>
-                <Field type="radio" name="manager_Num" value={ele.user_id}/>
-                {ele.user_id}
-            </label>
+                <option key={ele.user_id} label={ele.user_id} value={ele.user_id}/>
             )
         })
     )

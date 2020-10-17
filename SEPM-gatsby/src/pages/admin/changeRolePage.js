@@ -103,7 +103,7 @@ export default ({location}) => {
                 //\""+values.manager_Num+"\"
                 onSubmit={ async (values,actions)=>{
                     
-                    var man_id = values.manager_Num 
+                    var man_id = values.managerId
                     console.log(man_id);
                     await new Promise ((r) => setTimeout(r,200));
                     let output={};
@@ -113,7 +113,7 @@ export default ({location}) => {
                                 user_id: userid,
                                 role_admin: values.admin === ``? false: true,
                                 role_manager: values.manager === ``? false: true,
-                                manager_id: values.manager_Num === ``? null: man_id
+                                manager_id: values.managerId === ``? null: man_id
                             }
                         }).then((data)=> { sent = true;})
                     }
@@ -132,7 +132,7 @@ export default ({location}) => {
                     actions.setStatus(output)
                     actions.setSubmitting(true)
 
-                    console.log(`"${values.manager_Num}"`)
+                    console.log(`"${values.managerId}"`)
                 }}
             >
 
@@ -158,9 +158,18 @@ export default ({location}) => {
                             <Field type="checkbox" name="staff"></Field>
 
                             <label>Please choose manager id, if the role is only staff</label>
-                            <label>Manager</label>
+                            <label>Manager ID</label>
                             
-                            <ManagerDropDown/>
+                            <Field
+                                as="select"
+                                name="managerId"
+                                component="select"
+                                value={values.managerId}
+                                onChange={handleChange}
+                            >
+                                <ManagerDropDown/>
+                            </Field>
+                           
 
                             <button type="submit" disabled={isSubmitting}>submit</button>
                         
