@@ -18,20 +18,35 @@
 
 }
 
+p{
+    font-family: 'Quicksand';
+    color: rgb(223, 221, 240);
+}
+
 .falseRole{
     background: #beabd4;
     border-radius: 4px;
     border: none;
     margin: 1em;
     width: 50%;
-    padding: 10px;
+    padding: 5px;
     white-space: nowrap;
+    font-family: 'Quicksand';
+    font-weight: 300;
+    color: white;
+}
+
+Link{
+    text-decoration: none;
+}
+
+a{
+    text-decoration: none;
 }
 
 .changeRole{
-    background: #9E9999;
-    border: none;
-    border-radius: 3px;
+    background: transparent;
+    border-radius: 5px;
     color: black;
     margin: 1em;
     text-decoration: none;
@@ -39,8 +54,16 @@
     padding: 10px;
     height: 20%;
     white-space: nowrap;
-    font: 'Quicksand'
+    font-family: 'Quicksand';
+    border: 1px solid rgba(254, 254, 254,.3);
 }
+
+.changeRole:hover{
+    background: rgba(255,255,255, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
 
 .success{
     border-color: green;

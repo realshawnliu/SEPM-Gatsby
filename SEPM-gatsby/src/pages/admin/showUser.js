@@ -11,28 +11,33 @@ const TextInfo= styled.div`
   justify-content: space-evenly;
 `
 const InfoWrap = styled.div`
-  background: #EBE8E8;
+  background: transparent;
   width: 80%;
   margin-bottom: 1em;
   display:flex;
   flex-direction: row;
+  border-raidus: 5px;
+  border: 1px solid rgba(254, 254, 254,.3);
+  padding: 10px;
  
 `
 const DeactivateBtn = styled.button`
-  background: #f53f87;
-  border: none;
+  background: transparent;
+  border-radius: 5px;
   border-radius: 4px;
   color: white;
   margin: 1em;
   height:20%;
-`
+  padding: 10px;
+  white-space: nowrap;
+  font-family: 'Quicksand';
+  border: 1px solid rgba(254, 254, 254,.3);
 
-const ChangeRoleBtn = styled.button`
-  background: #9E9999;
-  border: none;
-  border-radius: 4px;
-  color: black;
-  margin: 1em;
+  &:hover{
+    background: rgba(240, 116, 112, 0.5);
+  }
+
+
 `
 
 const RoleBox =styled.div`
@@ -42,7 +47,7 @@ const RoleBox =styled.div`
 
 const BtnBox = styled.div`
   display: flex;
-  width: 10%;
+ 
 `
 
 const USERS_LIST = gql`
