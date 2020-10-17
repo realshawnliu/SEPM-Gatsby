@@ -19,9 +19,12 @@ const Confirmation = style.h1`
 `
 
 const InfoWrap = style.div`
-  background: #cfb7db;
+  background: transparent;
   width: 100%;
   margin-bottom: 1em;
+  border: white solid 1px;
+  
+
 `
 
 const Main = style.div`
@@ -55,9 +58,9 @@ const GET_Holiday = gql`
 `;
 
 
-const AddHoliday = () => {
+const AddHoliday = ({location}) => {
     const [startDate, setStartDate] = useState(new Date());
-
+    var isSent = false;
 
 
     const [addHoliday] = useMutation(ADD_PUBLIC_HOLIDAY)
@@ -88,15 +91,24 @@ const AddHoliday = () => {
                     }}
                     onSubmit={async (values, actions) => {
                         await new Promise((r) => setTimeout(r, 500));
+                        console.log(startDate);
 
                         try {
                             const response = await updateHoliday(values.name, startDate)
+                            isSent = true;
                         }
                         catch (err) {
                             console.log(err)
                         }
 
+                        if(isSent === true){
+                            actions.resetForm();
+                            actions.reload();
+                        }
+
                     }}
+
+
                 >
                     {({ isSubmitting, status, handleChange, handleBlur, values }) => (
                         <Form>

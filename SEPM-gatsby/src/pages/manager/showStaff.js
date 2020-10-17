@@ -4,20 +4,18 @@ import styled from "styled-components"
 
 //styling
 const InfoWrap = styled.div`
-  background: #cfb7db;
+  background: transparent;
   width: 100%;
   margin-bottom: 1em;
-`
-const DeactivateBtn = styled.button`
-  background: #f53f87;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
 `
 
-const BtnBox = styled.div`
+const NameEmail =styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 `
 
 const manager_user_id = "\"068dfbe3-e725-4ab2-aac9-307dd6659b22\"";
@@ -47,13 +45,11 @@ export default function ShowHistory() {
         return (
           <>
             <InfoWrap>
-              <h4>
-                Name : {firstName} {lastName}
-              </h4>
-
-              <p>
-                <b>Email:</b> {email}
-              </p>
+              <h1> Staff List : </h1>
+              <NameEmail>
+                <div><p>Name : {firstName} {lastName}</p></div>
+                <div><p><b>Email:</b> {email}</p></div>
+              </NameEmail>
             </InfoWrap>
           </>
         )

@@ -25,14 +25,23 @@ const BtnBox = styled.div`
     margin: 20px;
 `
 
+const NotifyMsg =styled.div`
+  border: 1px solid rgba(254, 254, 254,.3);
+  border-radius: 10px;
+  background: rgba(153, 204, 255, 0.7);
+  font-family: "Quicksand";
+  padding: 10px;
+`
+
 export default function StaffHome() {
   const userID = window.userData.user_id
   let needNotify = window.userData.annual_notify
   let output = {}
+  let message =``;
 
   if (needNotify === true) {
     console.log("you have not taken any annual within a year")
-    output.message = `you have not take any annual within a year`;
+   message = `you have not take any annual within a year`;
     output.classes = style.success
   }
 
@@ -56,6 +65,8 @@ export default function StaffHome() {
             }
           </div>
           </BtnBox>
+
+          <NotifyMsg>{message}</NotifyMsg>
         <ShowBalance userData={window.userData}/>
 
       </Wrap>

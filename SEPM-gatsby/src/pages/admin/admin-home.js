@@ -18,6 +18,12 @@ const MainWrap = styled.div`
   padding 3em;
 `
 
+const BtnBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+`
+
 
 export default function AdminHome() {
   // console.log(window.userData)
@@ -26,15 +32,19 @@ export default function AdminHome() {
     <BigWrap>
       <Layout/>
       <MainWrap>
-        <h1>ADMIN HOME</h1>  
-          <h4>
-          {window.userData.role_manager ?
-            <Link className={style.link} to={`/manager/manager-home/`}>switch to manager </Link> : ''
-          }</h4>
-
-        <h4>
-          <Link className={style.link} to={`/staff/staff-home/`}>switch to staff </Link>
-        </h4>
+        <h1>ADMIN HOME PAGE</h1>  
+        <BtnBox>
+          <div>
+            {window.userData.role_admin ?
+              <Link className= {style.switchBtn} to={`/staff/staff-home/`}>switch to staff </Link> : ''
+            }
+          </div>
+          <div>
+            {window.userData.role_manager ?
+              <Link className ={style.switchBtn} to={`/manager/manager-home/`} >switch to manager </Link> : ''
+            }
+          </div>
+          </BtnBox>
 
         <ShowUser/>
       </ MainWrap>

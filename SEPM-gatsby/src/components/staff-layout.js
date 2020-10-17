@@ -4,10 +4,7 @@ import { Link } from "gatsby"
 import style from "../components/layout.module.css";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "react-pro-sidebar/dist/css/styles.css"
-import { SidebarHeader, 
-  // SidebarFooter, 
-  // SidebarContent 
-} from "react-pro-sidebar"
+import { SidebarHeader} from "react-pro-sidebar"
 
 const SideBar = styled.div`
   height: 100%;

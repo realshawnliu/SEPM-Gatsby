@@ -8,6 +8,18 @@ import styled from "styled-components";
 import { gql, useMutation, useQuery } from '@apollo/client';
 import style from "../admin/createAccount.module.css";
 
+const BtnBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+`
+const MainWrap = styled.div`
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  padding 3em;
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,16 +70,25 @@ export default function ManagerHome() {
     <div>
       <Wrapper>
         <Layout />
-        <h4>{window.userData.role_admin ?
-          <Link to={`/admin/admin-home/`}>switch to admin </Link> : ''
-        }</h4>
+        <MainWrap>
+          <h1>MANAGER HOME</h1>
+          <BtnBox>
+            <div>
+              {window.userData.role_admin ?
+                <Link className= {style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
+              }
+            </div>
 
-        <h4>
-          <Link to={`/staff/staff-home/`}>switch to staff </Link>
-        </h4>
-        <RequestWrap>
-          <ShowRequests userData={window.userData} />
-        </RequestWrap>
+            <div>
+              <Link className= {style.switchBtn} to={`/staff/staff-home/`}>switch to staff </Link>
+            </div>
+          </BtnBox>
+          <RequestWrap>
+            <ShowRequests userData={window.userData} />
+          </RequestWrap>
+        </MainWrap>
+        
+       
       </Wrapper>
     </div>
   )
