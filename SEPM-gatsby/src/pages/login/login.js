@@ -72,12 +72,14 @@ const ALL_USER = gql`
         first_name
         email
         acct_active
+        annual_notify
       }
 }
 `
 
 const LoginPage = () => {
   let output = {}
+
   const { loading, error, data } = useQuery(ALL_USER)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
@@ -121,27 +123,15 @@ const LoginPage = () => {
 
       }
       else {
-<<<<<<< HEAD
         console.log("login unsuccessfully")
         output.message =`login unsuccessfully`;
         output.classes = style.fail;
-=======
-        console.log("login failed")
-        // return(
-        //   <Popup trigger={<button> Trigger</button>} position="right center">
-        //   <div>Popup content here !!</div>
-        // </Popup>
-        // )
->>>>>>> 8cda464f123d89658d3dff41faf00e0ef2fe67da
       }
     }
   }
 
   return (
     <Main>
-      {/* <Link to={`/admin/admin-home/`}>admin </Link>
-      <Link to={`/staff/staff-home/`}>staff </Link>
-      <Link to={`/manager/manager-home/`}>manager</Link> */}
       <Box>
         <Title>
           <h1>Login Page</h1>
