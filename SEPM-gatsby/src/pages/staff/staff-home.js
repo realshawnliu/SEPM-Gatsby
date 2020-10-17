@@ -4,6 +4,8 @@ import ShowBalance from "../staff/showBalance"
 import StaffNoti from "../staff/staffNoti"
 import { Link } from "gatsby"
 import styled from "styled-components";
+import style from "../admin/createAccount.module.css";
+
 
 const Wrap =styled.div`
   display:flex;
@@ -12,11 +14,15 @@ const Wrap =styled.div`
   justify-content: center;
   
 `
-
 const Main = styled.div`
     display: flex;
     flex-direction: row;
 
+`
+const BtnBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
 `
 
 export default function StaffHome() {
@@ -28,26 +34,30 @@ export default function StaffHome() {
       <Layout/>
       <Wrap>
         <h1>Welcome {window.userData.first_name}</h1>
-          <h4>{window.userData.role_admin ?
-            <Link to={`/admin/admin-home/`}>switch to admin </Link> : ''
-          }</h4>
-
-          <h4>
+          <BtnBox>
+          
+          <div>
+            {window.userData.role_admin ?
+              <Link className= {style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
+            }
+          </div>
+          <div>
             {window.userData.role_manager ?
-              <Link to={`/manager/manager-home/`} >switch to manager </Link> : ''
-            }</h4>
+              <Link className ={style.switchBtn} to={`/manager/manager-home/`} >switch to manager </Link> : ''
+            }
+          </div>
+
+          </BtnBox>
+            
 
           {/* <StaffNoti /> */}
 
-        <ShowBalance/>
 
-<<<<<<< HEAD
+        <ShowBalance userData={window.userData}/>
+
       </Wrap>
        
     </Main>
-=======
-      <ShowBalance userData={window.userData}/>
-    </div>
->>>>>>> 8cda464f123d89658d3dff41faf00e0ef2fe67da
+      
   )
 }

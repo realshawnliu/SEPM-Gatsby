@@ -121,18 +121,10 @@ const LoginPage = () => {
 
       }
       else {
-<<<<<<< HEAD
         console.log("login unsuccessfully")
         output.message =`login unsuccessfully`;
         output.classes = style.fail;
-=======
-        console.log("login failed")
-        // return(
-        //   <Popup trigger={<button> Trigger</button>} position="right center">
-        //   <div>Popup content here !!</div>
-        // </Popup>
-        // )
->>>>>>> 8cda464f123d89658d3dff41faf00e0ef2fe67da
+  
       }
     }
   }
