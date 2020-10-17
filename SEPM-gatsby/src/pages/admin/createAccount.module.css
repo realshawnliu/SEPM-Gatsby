@@ -30,6 +30,7 @@
     padding: 0 8px;
     box-shadow: 0 0 25px 0 rgba(0,0,0,.05);
     color:white;
+    margin: 10px;
 }
 
 .input:hover{
@@ -74,9 +75,33 @@ link{
 }
 
 link:hover{
-
     text-decoration: none;
     color: #958E8E;
     font-family: "Quicksand";
 
+}
+
+.switchBtn{
+    text-decoration: none;
+    background: transparent;
+    border-radius: 5px;
+    width: 50%;
+    border: 1px solid rgba(254, 254, 254,.3);
+    padding: 10px;
+    margin-top: 10px;
+    color:white;
+    margin: 5px;
+
+}
+
+.switchBtn:hover{
+    text-decoration: none;
+    background: rgba(255,204,153);
+    -o-transition:color .2s ease-out;
+    -ms-transition:color .2s ease-out;
+    -moz-transition:color .2s ease-out;
+    -webkit-transition:color .2s ease-out;
+    /* ...and now override with proper CSS property */
+    transition:color .2s ease-out;
+    color: black;
 }
