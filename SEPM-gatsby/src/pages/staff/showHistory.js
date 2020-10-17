@@ -58,7 +58,7 @@ export default function ShowHistoryBlock({ userData }) {
   const { loading, error, data } = useQuery(LEAVE_HISTORY)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
-  // if (data) console.log(data)
+  if (data) console.log(data)
 
   let hasRequest = false;
 

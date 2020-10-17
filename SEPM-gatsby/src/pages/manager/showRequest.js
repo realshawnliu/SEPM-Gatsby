@@ -102,7 +102,7 @@ export default function ShowRequests({ userData }) {
     )
   }
 
-  
+
   return (
     <>
       {data.leave_request.map(req => {
@@ -118,89 +118,91 @@ export default function ShowRequests({ userData }) {
         const staffManagerID = req.user.manager_id
 
 
-        return (
-          <>
-            <InfoWrap key={leaveID}>
-              <h4>
-                Name : {firstName} {lastName}
-              </h4>
-              <DateBox>
+        if (staffManagerID === userID) {
+          return (
+            <>
+              <InfoWrap key={leaveID}>
+                <h4>
+                  Name : {firstName} {lastName}
+                </h4>
+                <DateBox>
+                  <p>
+                    <b>From: </b> {fromDate}
+                  </p>
+                  <p>
+                    <b>To: </b> {toDate}{" "}
+                  </p>
+                </DateBox>
+
                 <p>
-                  <b>From: </b> {fromDate}
+                  <b>Status:</b> {status}
                 </p>
                 <p>
-                  <b>To: </b> {toDate}{" "}
+                  {" "}
+                  <b>requested on:</b> {requestDate}
                 </p>
-              </DateBox>
+                <p>
+                  <b>no. of days:</b> {days}
+                </p>
+                <p>
+                  <b>Leave type:</b> {type}
+                </p>
 
-              <p>
-                <b>Status:</b> {status}
-              </p>
-              <p>
-                {" "}
-                <b>requested on:</b> {requestDate}
-              </p>
-              <p>
-                <b>no. of days:</b> {days}
-              </p>
-              <p>
-                <b>Leave type:</b> {type}
-              </p>
-
-              {status == "PENDING" ? (
-                <BtnBox>
-                  <ApproveBtn
-                    onClick={e => {
-                      console.log("approve clicked")
-                      console.log("about to approve request for: " + leaveID)
-                      e.preventDefault()
-                      approveRequest({
-                        variables: {
-                          leave_id: leaveID,
-                        },
-                      })
-                        .then(data => {
-                          console.log("leave id" + leaveID + "request approved")
+                {status == "PENDING" ? (
+                  <BtnBox>
+                    <ApproveBtn
+                      onClick={e => {
+                        console.log("approve clicked")
+                        console.log("about to approve request for: " + leaveID)
+                        e.preventDefault()
+                        approveRequest({
+                          variables: {
+                            leave_id: leaveID,
+                          },
                         })
-                        .catch(e => {
-                          console.log(e)
-                        })
-                    }}
-                  >
-                    {" "}
+                          .then(data => {
+                            console.log("leave id" + leaveID + "request approved")
+                          })
+                          .catch(e => {
+                            console.log(e)
+                          })
+                      }}
+                    >
+                      {" "}
                     Approve
                   </ApproveBtn>
 
-                  <RejectBtn
-                    onClick={e => {
-                      console.log("reject clicked")
-                      console.log("about to reject request for: " + leaveID)
-                      e.preventDefault()
-                      rejectRequest({
-                        variables: {
-                          leave_id: leaveID,
-                        },
-                      })
-                        .then(data => {
-                          console.log(
-                            "leave id " + leaveID + "request rejected"
-                          )
+                    <RejectBtn
+                      onClick={e => {
+                        console.log("reject clicked")
+                        console.log("about to reject request for: " + leaveID)
+                        e.preventDefault()
+                        rejectRequest({
+                          variables: {
+                            leave_id: leaveID,
+                          },
                         })
-                        .catch(e => {
-                          console.log(e)
-                        })
-                    }}
-                  >
-                    {" "}
+                          .then(data => {
+                            console.log(
+                              "leave id " + leaveID + "request rejected"
+                            )
+                          })
+                          .catch(e => {
+                            console.log(e)
+                          })
+                      }}
+                    >
+                      {" "}
                     Reject
                   </RejectBtn>
-                </BtnBox>
-              ) : (
-                  ""
-                )}
-            </InfoWrap>
-          </>
-        )
+                  </BtnBox>
+                ) : (
+                    ""
+                  )}
+              </InfoWrap>
+            </>
+          )
+        }
       })}
     </>
   )

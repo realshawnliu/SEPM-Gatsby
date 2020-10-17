@@ -7,9 +7,6 @@ const InfoWrap = styled.div`
   background: transparent;
   width: 100%;
   margin-bottom: 1em;
-  border: white solid 1px;
-  border-radius: 5px;
-  padding: 5px;
 `
 
 const LEAVE_BALANCE = gql`
@@ -46,8 +43,14 @@ export default function ShowHistory({ userData }) {
     }
   }
 
+  if(findID === false){
+    return(
+          <InfoWrap>
+    <p>did not find userID in leave balance</p>
+  </InfoWrap>
+    )
+  }
 
-  if (findID === true) {
     return (
       <>
         {data.leave_balance.map(req => {
@@ -84,11 +87,5 @@ export default function ShowHistory({ userData }) {
         })}
       </>
     )
-  }
-  else{
-    return(
-      console.log("did not find userID in leave balance")
-    )
-  }
 
 }

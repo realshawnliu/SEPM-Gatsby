@@ -113,7 +113,9 @@ export default function ShowHistory({ userData }) {
                   <b>Name</b> : {firstName} {lastName}
                 </p>
 
-                <div className={style.falseRole}>{isAdmin && isManager ? " admin & manager " : isAdmin ? "admin" : isManager ? "manager" : "staff"}</div>
+                <div className={style.falseRole}>{isAdmin && isManager ? 
+                " admin & manager " : isAdmin ? "admin" : isManager ? 
+                "manager" : "staff"}</div>
 
                 <p>
                   <b>Email:</b> {email}
@@ -137,7 +139,7 @@ export default function ShowHistory({ userData }) {
                         .then(data => {
                           console.log(
                             "user " +
-                            "068dfbe3-e725-4ab2-aac9-307dd6659b22" +
+                            userID +
                             "has been deactivate"
                           )
                         })
