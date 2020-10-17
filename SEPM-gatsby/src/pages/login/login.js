@@ -61,6 +61,8 @@ const LoginPage = () => {
     for (let i = 0; i < data.user.length; i++) {
       if (email === data.user[i].email
         && password === data.user[i].password) {
+
+          console.log(data.user[i])
         if (data.user[i].acct_active === false) {
           console.log("this account is deactivate")
         }

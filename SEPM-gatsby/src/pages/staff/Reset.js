@@ -36,7 +36,6 @@ const confirmationMessage = "";
 function Reset({ userData }) {
   const userID = userData.user_id
 
-
   const { inputs, handleChange, resetForm } = useForm({
     password: '',
     confirmPassword: '',
@@ -44,7 +43,6 @@ function Reset({ userData }) {
 
   const [resetPassword, { error, loading, data }] = useMutation(UPDATE_PASSWORD, {
     variables: {
-      //currently hardcoded 
       user_id: userID,
       password: inputs.password,
     }
@@ -81,7 +79,7 @@ function Reset({ userData }) {
     // }}
     >
       <fieldset disabled={loading} aria-busy={loading} />
-      <h2>Reset Your Password</h2>
+      <h2>Change Your Password</h2>
       {data && data.resetPassword && data.resetPassword.message}
 
       <Confirmation>{confirmationMessage}</Confirmation>
@@ -90,7 +88,7 @@ function Reset({ userData }) {
 
 
       <Form.Group controlId="">
-        <Form.Label>New password</Form.Label>
+        <Form.Label>Enter new password</Form.Label>
         <Form.Control
           type="password"
           name="password"
@@ -115,7 +113,7 @@ function Reset({ userData }) {
         />
       </Form.Group>
 
-      <Button type="submit">reset</Button>
+      <Button type="submit">Confirm</Button>
 
     </Form>
 
