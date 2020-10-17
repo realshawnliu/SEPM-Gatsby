@@ -58,8 +58,6 @@ const GET_Holiday = gql`
 const AddHoliday = () => {
     const [startDate, setStartDate] = useState(new Date());
 
-
-
     const [addHoliday] = useMutation(ADD_PUBLIC_HOLIDAY)
 
     const updateHoliday = (name, date) => {
@@ -113,7 +111,6 @@ const AddHoliday = () => {
                     )}
                 </Formik>
             </Main>
-
 
             <>
                 {data.public_holiday.map(req => {

@@ -22,11 +22,11 @@ const BtnBox = styled.div`
 
 const EMPLOYEES_LIST = gql`
 {
-  user{
-    first_name
-    last_name
-    email
+  user {
     manager_id
+    last_name
+    first_name
+    email
   }
 }
 `;
@@ -66,20 +66,24 @@ export default function ShowStaff({ userData }) {
         const firstName = req.first_name
         const lastName = req.last_name
         const email = req.email
+        const staffManagerID = req.manager_id
 
-        return (
-          <>
-            <InfoWrap>
-              <h4>
-                Name : {firstName} {lastName}
-              </h4>
+        if (staffManagerID === userID) {
+          return (
+            <>
+              <InfoWrap>
+                <h4>
+                  Name : {firstName} {lastName}
+                </h4>
 
-              <p>
-                <b>Email:</b> {email}
-              </p>
-            </InfoWrap>
-          </>
-        )
+                <p>
+                  <b>Email:</b> {email}
+                </p>
+              </InfoWrap>
+            </>
+          )
+        }
+
       })}
     </>
   )
