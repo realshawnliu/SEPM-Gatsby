@@ -9,7 +9,7 @@ export default function ManagerList() {
   return (
     <div>
       <Layout>
-        <ShowStaff/>
+        <ShowStaff userData={window.userData}/>
       </Layout>
     </div>
   )

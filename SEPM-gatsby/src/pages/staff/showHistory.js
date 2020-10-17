@@ -58,7 +58,7 @@ export default function ShowHistoryBlock({ userData }) {
   const { loading, error, data } = useQuery(LEAVE_HISTORY)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
-  if (data) console.log(data)
+  // if (data) console.log(data)
 
   let hasRequest = false;
 
@@ -76,6 +76,9 @@ export default function ShowHistoryBlock({ userData }) {
     )
   }
 
+  // if(){
+
+  // }
   return (
     <>
       {data.leave_request.map(req => {
@@ -119,16 +122,18 @@ export default function ShowHistoryBlock({ userData }) {
                   <BtnBox>
                     <CancelBtn
                       onClick={e => {
+                        console.log("cancel clicked")
+                        console.log("about to cancel request: " + leaveID)
                         e.preventDefault()
                         cancelRequest({
                           variables: {
-                            leave_id: userID,
+                            leave_id: leaveID,
                           },
                         })
                           .then(data => {
                             console.log(
                               "leave id " +
-                              userID +
+                              leaveID +
                               "request cancelled"
                             )
                           })

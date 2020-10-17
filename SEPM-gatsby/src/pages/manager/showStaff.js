@@ -20,22 +20,45 @@ const BtnBox = styled.div`
   display: flex;
 `
 
-const manager_user_id = "\"068dfbe3-e725-4ab2-aac9-307dd6659b22\"";
 const EMPLOYEES_LIST = gql`
 {
-  user(where: {manager_id: {_eq: ${manager_user_id}}}){
+  user{
     first_name
     last_name
     email
+    manager_id
   }
 }
 `;
 
 
-export default function ShowHistory() {
+export default function ShowStaff({ userData }) {
+  const userID = userData.user_id
+
   const { loading, error, data } = useQuery(EMPLOYEES_LIST)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
+  if (data) console.log(data)
+
+  let hasStaff = false;
+
+  for (let i = 0; i < data.user.length; i++) {
+    console.log("managerID:      " + userID)
+    console.log("staffManagerID: " + data.user[i].manager_id)
+    console.log(" ")
+
+    if (userID === data.user[i].manager_id) {
+      hasStaff = true
+    }
+  }
+
+  if (hasStaff === false) {
+    return (
+      <InfoWrap>
+        <p>no staff</p>
+      </InfoWrap>
+    )
+  }
 
   return (
     <>

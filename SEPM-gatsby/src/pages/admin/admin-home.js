@@ -36,7 +36,7 @@ export default function AdminHome() {
           <Link className={style.link} to={`/staff/staff-home/`}>switch to staff </Link>
         </h4>
 
-        <ShowUser/>
+        <ShowUser userData={window.userData}/>
       </ MainWrap>
     </ BigWrap>
   )

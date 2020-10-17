@@ -31,27 +31,25 @@ const DateBox = styled.div`
   flex-direction: space-evenly;
 `
 
-//To-do queries- i'm going to have one page dedicated to queries
-var manager_id = '"068dfbe3-e725-4ab2-aac9-307dd6659b22"'
+
 
 const EMPLOYEES_LEAVE_REQUEST = gql`
 {
-  user(where: {manager_id: {_eq: ${manager_id}}}) {
-    leave_requests {
-      leave_id
-      from
-      to
-      status
-      requested_on
-      no_of_days
-      leave_type {
-        name
-      }
-      user {
-        first_name
-        last_name
-      }
+  leave_request {
+    status
+    from
+    to
+    requested_on
+    no_of_days
+    leave_type {
+      name
     }
+    user {
+      first_name
+      last_name
+      manager_id
+    }
+    leave_id
   }
 }
 `
@@ -72,19 +70,42 @@ const REJECT_LEAVE_REQUEST = gql`
 `
 
 
-export default function ShowRequests() {
+export default function ShowRequests({ userData }) {
+  const userID = userData.user_id
   const [approveRequest] = useMutation(APPROVE_LEAVE_REQUEST)
   const [rejectRequest] = useMutation(REJECT_LEAVE_REQUEST)
-  
+
   const { loading, error, data } = useQuery(EMPLOYEES_LEAVE_REQUEST)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
   if (data) console.log(data)
+
+  console.log(data.leave_request[0].user.manager_id)
+
+  let hasRequest = false;
+
+  for (let i = 0; i < data.leave_request.length; i++) {
+    // console.log("managerID:      " + userID)
+    // console.log("staffManagerID: " + data.leave_request[i].user.manager_id)
+    // console.log(" ")
+
+    if (userID === data.leave_request[i].user.manager_id) {
+      hasRequest = true
+    }
+  }
+
+  if (hasRequest === false) {
+    return (
+      <InfoWrap>
+        <p>no leave request</p>
+      </InfoWrap>
+    )
+  }
+
   
- 
   return (
     <>
-      {data.user[0].leave_requests.map(req => {
+      {data.leave_request.map(req => {
         const fromDate = req.from
         const toDate = req.to
         const status = req.status
@@ -94,6 +115,8 @@ export default function ShowRequests() {
         const firstName = req.user.first_name
         const lastName = req.user.last_name
         const leaveID = req.leave_id
+        const staffManagerID = req.user.manager_id
+
 
         return (
           <>
@@ -128,6 +151,8 @@ export default function ShowRequests() {
                 <BtnBox>
                   <ApproveBtn
                     onClick={e => {
+                      console.log("approve clicked")
+                      console.log("about to approve request for: " + leaveID)
                       e.preventDefault()
                       approveRequest({
                         variables: {
@@ -148,10 +173,12 @@ export default function ShowRequests() {
 
                   <RejectBtn
                     onClick={e => {
+                      console.log("reject clicked")
+                      console.log("about to reject request for: " + leaveID)
                       e.preventDefault()
                       rejectRequest({
                         variables: {
-                          leave_id: "ecaf7229-8981-4da0-9f5e-f7f711f2e27d",
+                          leave_id: leaveID,
                         },
                       })
                         .then(data => {
@@ -169,8 +196,8 @@ export default function ShowRequests() {
                   </RejectBtn>
                 </BtnBox>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </InfoWrap>
           </>
         )
