@@ -1,0 +1,18 @@
+.link{
+    text-decoration: none;
+    font-family: "Quicksand";
+    color: black;
+
+}
+
+.link:hover{
+    text-decoration: none;
+    color:white;
+    border-radius: 2px;
+    -o-transition:color .2s ease-out;
+  -ms-transition:color .2s ease-out;
+  -moz-transition:color .2s ease-out;
+  -webkit-transition:color .2s ease-out;
+  /* ...and now override with proper CSS property */
+  transition:color .2s ease-out
+}

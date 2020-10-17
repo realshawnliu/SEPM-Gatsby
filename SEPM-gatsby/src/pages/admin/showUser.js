@@ -116,7 +116,7 @@ export default function ShowHistory() {
                   <b>Name</b> : {firstName} {lastName}
                 </p>
   
-                <div className={style.falseRole}>{isAdmin && isManager? " admin & manager " : isAdmin? "admnin" : isManager? "manager" : "staff" }</div>
+                <div className={style.falseRole}>{isAdmin && isManager? " admin & manager " : isAdmin? "admin" : isManager? "manager" : "staff" }</div>
 
                 <p>
                   <b>Email:</b> {email}

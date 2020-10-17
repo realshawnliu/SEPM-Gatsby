@@ -98,9 +98,6 @@ export default ({location}) => {
                     }
                 }}
 
-
-
-                //\""+values.manager_Num+"\"
                 onSubmit={ async (values,actions)=>{
                     
                     var man_id = values.managerId
@@ -128,6 +125,7 @@ export default ({location}) => {
                         output.type=`success`
                         output.classes=style.success
                         navigate('/admin/admin-home');
+                        location.reload();
                     }
                     actions.setStatus(output)
                     actions.setSubmitting(true)
@@ -167,6 +165,7 @@ export default ({location}) => {
                                 value={values.managerId}
                                 onChange={handleChange}
                             >
+                                <option label="select manager "></option>
                                 <ManagerDropDown/>
                             </Field>
                            
