@@ -39,6 +39,7 @@ const Main = styled.div`
     flex-direction: column;
     justify-content: center;
     padding: 3em;
+    background: 
 `
 
 const ErrorBox = styled.div`
@@ -49,7 +50,7 @@ function FormikControl(props) {
 
 }
 
-const CreateAccount = () => {
+const CreateAccount = props => {
     // const {
     //     values,
     //     handleChange,
@@ -66,8 +67,10 @@ const CreateAccount = () => {
     let errorMessageFromDb;
     let message;
 
-    // const {loading,error,data} = useQuery(LIST_MANAGER);
-    // console.log(data);
+    const {loading,error,data} = useQuery(LIST_MANAGER);
+    if(loading) return 'loading';
+    if(error) {return error.message};
+
     // const generateId = () => {
     //     data.user.map((ele) => {const id = ele.user_id
     //     return (
@@ -77,6 +80,8 @@ const CreateAccount = () => {
     //     )}
     // )}
 
+    var pattern = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[$*&+?><)(])[\w$*&+?><)(]{10,}$/;
+       
     return(
         <Wrap>
             <Layout></Layout>
@@ -117,6 +122,9 @@ const CreateAccount = () => {
                         else if(!values.password){
                             errors.password=`password is required`
                         }
+                        else if(!pattern.test(values.password)){
+                            errors.password = `Passwords should be at least 10 characters, including upper and lower case letters, digits and at least one special character out of !, $ *, &, +, ?, <, >, (, )`
+                        }
                         else if(!values.role){
                             errors.role = `You must choose an account type`
                         }
@@ -147,21 +155,30 @@ const CreateAccount = () => {
                         }
                     }}
 
-                    managerValue ={(values) => {
-                        if(values.managerId === ""){
-                            managerIdValue = null;
-                        }
-                        else{
-                            managerIdValue = values.managerId;
-                            console.log(managerIdValue);
-                        }
-                    }}
+                    // managerValue ={(values) => {
+                    //     console.log(values.managerId)
+                    //     if(values.managerId === ""){
+                    //         managerIdValue = null;
+                    //     }
+                    //     else{
+                    //         managerIdValue = values.managerId;
+                    //         console.log(managerIdValue);
+                    //     }
+                    // }}
 
                     
                     onSubmit ={ async (values, actions) => {
+
+                        var man_id = values.managerid
+                        if(man_id === ``){
+                            man_id = null
+                        }
+
                         await new Promise ((r) => setTimeout(r,500));
                     
                         let output={};
+
+                        console.log(man_id);
                         
                         try {
                             const response = await addAccount({
@@ -169,7 +186,7 @@ const CreateAccount = () => {
                                 first_name: values.firstName,
                                 last_name: values.lastName,
                                 email: values.email,
-                                manager_id: managerIdValue,
+                                manager_id: values.managerid === ``? null : values.managerId,
                                 password: values.password,
                                 role_admin: adminRoleB,
                                 role_manager: managerRoleB
@@ -184,8 +201,6 @@ const CreateAccount = () => {
                             output.classes = style.fail
 
                         }
-
-                    
         
                         if (sent === true ){
                             output.message=`Account successfully created`
@@ -204,38 +219,52 @@ const CreateAccount = () => {
                             <FormWrap>
                                 <label>First name</label>
                                 <Field className={style.input} type ="text" name="firstName"></Field>
+                                <ErrorMessage color='red' name='firstName' className={style.fail} component ='div'/>
+
                                 <label>Last name</label>
-                                <Field type="text" name="lastName"></Field>
+                                <Field className={style.input}  type="text" name="lastName"></Field>
+                                <ErrorMessage color='red' name='lastName' className={style.fail} component='div'/>
+
                                 <label>Email</label>
-                                <Field type="email" name="email"></Field>
+                                <Field className={style.input}  type="email" name="email"></Field>
+                                <ErrorMessage color='red' name='email' className={style.fail} component='div'/>
+
                                 <label>password</label>
-                                <Field type="password" name="password"></Field>
+                                <Field className={style.input}  type="password" name="password"></Field>
+                                <ErrorMessage color='red' name='password' className={style.fail} component='div'/>
+
+                                <ErrorMessage color='red' name='role' className={style.fail} component='div'/>
                                 <label>Account type</label>
-                                <Field type="radio" name="role" value="staff"></Field> Normal staff 
-                                <Field type="radio" name="role" value="manager"></Field> Manager
-                                <Field type="radio" name="role" value="admin"></Field> Admin
+                                <Field type="radio" name="role" value="staff"></Field> <label>Normal staff</label>
+                                <Field type="radio" name="role" value="manager"></Field> <label>Manager</label>
+                                <Field type="radio" name="role" value="admin"></Field> <label>Admin</label>
                                 <label>Manager ID</label>
 
                                 <Field
                                     as="select"
                                     name="managerId" 
                                     component="select"
+                                    values={values.managerId}
+                                    onChange={handleChange}
                                     // onChange={handleChange}
                                     // onBlur={handleBlur}
                                 >
                                     <option value="" label="select manager id"/>
                                     <option value="abcde" label="abcde"/>
-                                    <ManagerDropDown/>
+                                    {data.user.map((ele) => {
+                                        return(
+                                            <option key={ele.user_id} value={ele.user_id} label={ele.user_id}/>
+                                        )
+                                    })}
+                                    
                                 </Field>
+
+                                <ErrorMessage color='red' name='managerId' className={style.fail} component='div'/>
                                 
-                                <button type="submit" disabled={isSubmitting}>Submit</button>
-                                    <ErrorMessage color='red' name='firstName' className={style.fail} component ='div'/>
-                                    <ErrorMessage color='red' name='lastName' className='field-validation' component='div'/>
-                                    <ErrorMessage color='red' name='email' className='field-validation' component='div'/>
-                                    <ErrorMessage color='red' name='password' className='field-validation' component='div'/>
-                                    <ErrorMessage color='red' name='role' className='field-validation' component='div'/>
-                                    <ErrorMessage color='red' name='managerId' className={style.fail} component='div'/>
-                                    <ErrorMessage color='red'name='db' className='field-validation' component='div'/>
+                                
+                                <button className={style.submitBtn} type="submit" disabled={isSubmitting}>Submit</button>
+                                    
+                                <ErrorMessage color='red'name='db' className={style.fail} component='div'/>
                                 
                                 {status && <div className={status.classes}>{status.message}</div>}
                             </FormWrap>
