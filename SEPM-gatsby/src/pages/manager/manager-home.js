@@ -4,8 +4,9 @@ import React, {
 import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
-// import ManagerNoti from "../manager/managerNoti"
 import styled from "styled-components";
+import { gql, useMutation, useQuery } from '@apollo/client';
+import style from "../admin/createAccount.module.css";
 
 
 const Wrapper = styled.div`
@@ -18,14 +19,45 @@ const RequestWrap = styled.div`
   width: 50%;
 `
 
+const ALL_USER = gql`
+{
+  user {
+        manager_id
+        last_name
+        first_name
+        acct_active
+        annual_notify
+      }
+}
+`
+
 export default function ManagerHome() {
+  let output = {}
+
+  const managerID = window.userData.user_id
+
+  const { loading, error, data } = useQuery(ALL_USER)
+  if (loading) return "loading..."
+  if (error) return `Error! ${error.message}`
+  // if (data) console.log(data)
+
+  const userArray = data.user
+
+
+  for (let i = 0; i < userArray.length; i++) {
+
+    if (userArray[i].annual_notify === true
+      && userArray[i].manager_id === managerID) {
+      console.log(userArray[i].first_name + " " + userArray[i].last_name + " has not taken any annual within a year")
+      output.message = `you have not take any annual within a year`;
+      output.classes = style.success
+    }
+  }
+
   return (
     <div>
       <Wrapper>
         <Layout />
-
-          {/* <ManagerNoti /> */}
-
         <h4>{window.userData.role_admin ?
           <Link to={`/admin/admin-home/`}>switch to admin </Link> : ''
         }</h4>
@@ -34,7 +66,7 @@ export default function ManagerHome() {
           <Link to={`/staff/staff-home/`}>switch to staff </Link>
         </h4>
         <RequestWrap>
-          <ShowRequests userData={window.userData}/>
+          <ShowRequests userData={window.userData} />
         </RequestWrap>
       </Wrapper>
     </div>

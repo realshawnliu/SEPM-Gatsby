@@ -60,11 +60,10 @@ export default function ShowHistoryBlock({ userData }) {
   if (error) return `Error! ${error.message}`
   if (data) console.log(data)
 
-  // console.log
   let hasRequest = false;
 
-  for (let i = 0; i < data.length; i++) {
-    if (userID === data[i].user_id) {
+  for (let i = 0; i < data.leave_request.length; i++) {
+    if (userID === data.leave_request[i].user_id) {
       hasRequest = true
     }
   }
