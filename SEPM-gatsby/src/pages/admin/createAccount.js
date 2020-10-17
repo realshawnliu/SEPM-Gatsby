@@ -143,8 +143,6 @@ const CreateAccount = props => {
                         await new Promise ((r) => setTimeout(r,500));
                     
                         let output={};
-
-                        console.log(man_id);
                         
                         try {
                             const response = await addAccount({
@@ -165,7 +163,6 @@ const CreateAccount = props => {
                             console.log(output.message)
                             output.type=`error`
                             output.classes = style.fail
-
                         }
         
                         if (sent === true ){
@@ -225,12 +222,11 @@ const CreateAccount = props => {
                                     
                                 </Field>
 
-                                <ErrorMessage color='red' name='managerId' className={style.fail} component='div'/>
+                                <ErrorMessage name='managerId' className={style.fail} component='div'/>
                                 
                                 
                                 <button className={style.submitBtn} type="submit" disabled={isSubmitting}>Submit</button>
                                     
-                                <ErrorMessage color='red'name='db' className={style.fail} component='div'/>
                                 
                                 {status && <div className={status.classes}>{status.message}</div>}
                             </FormWrap>
