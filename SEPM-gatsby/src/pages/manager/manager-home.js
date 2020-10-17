@@ -4,12 +4,9 @@ import React, {
 import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
-// import ManagerNoti from "../manager/managerNoti"
 import styled from "styled-components";
 import { gql, useMutation, useQuery } from '@apollo/client';
 import style from "../admin/createAccount.module.css";
-
-
 
 
 const Wrapper = styled.div`
@@ -61,9 +58,6 @@ export default function ManagerHome() {
     <div>
       <Wrapper>
         <Layout />
-
-        {/* <ManagerNoti /> */}
-
         <h4>{window.userData.role_admin ?
           <Link to={`/admin/admin-home/`}>switch to admin </Link> : ''
         }</h4>

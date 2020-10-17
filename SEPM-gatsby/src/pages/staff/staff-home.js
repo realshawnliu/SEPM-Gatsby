@@ -1,7 +1,6 @@
 import React from "react"
 import Layout from "../../components/staff-layout"
 import ShowBalance from "../staff/showBalance"
-import StaffNoti from "../staff/staffNoti"
 import { Link } from "gatsby"
 import styled from "styled-components";
 import { gql, useMutation, useQuery } from '@apollo/client';
@@ -16,10 +15,14 @@ const Wrap = styled.div`
   justify-content: center;
   
 `
-
 const Main = styled.div`
     display: flex;
     flex-direction: row;
+`
+const BtnBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
 `
 
 export default function StaffHome() {
@@ -41,22 +44,23 @@ export default function StaffHome() {
       <Layout />
       <Wrap>
         <h1>Welcome {window.userData.first_name}</h1>
-        <h4>{window.userData.role_admin ?
-          <Link to={`/admin/admin-home/`}>switch to admin </Link> : ''
-        }</h4>
+          <BtnBox>
+          <div>
+            {window.userData.role_admin ?
+              <Link className= {style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
+            }
+          </div>
+          <div>
+            {window.userData.role_manager ?
+              <Link className ={style.switchBtn} to={`/manager/manager-home/`} >switch to manager </Link> : ''
+            }
+          </div>
+          </BtnBox>
+        <ShowBalance userData={window.userData}/>
 
-        <h4>
-          {window.userData.role_manager ?
-            <Link to={`/manager/manager-home/`} >switch to manager </Link> : ''
-          }</h4>
-        
-
-
-        {/* <StaffNoti /> */}
-
-        <ShowBalance userData={window.userData} />
       </Wrap>
 
     </Main>
+      
   )
 }
