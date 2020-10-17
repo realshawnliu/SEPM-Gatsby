@@ -3,10 +3,7 @@ import React, { Component } from "react"
 import styled from "styled-components"
 
 
-console.log(window.userData)
-// console.log(window.userData.user_id)
-
-let globalData = null;
+let globalData
 
 //styling
 const InfoWrap = styled.div`
@@ -31,11 +28,34 @@ const DateBox = styled.div`
   flex-direction: space-evenly;
 `
 
-var user_id = '"1564ed64-1e1d-4c76-ac1e-b1213dfaa6cb"'
-// window.userData.user_id
 
-const LEAVE_HISTORY = gql`
-{
+
+const CANCEL_LEAVE_REQUEST = gql`
+  mutation($leave_id: uuid!) {
+    CancelLeaveRequest(leave_id: $leave_id) {
+      affected_rows
+    }
+  }
+`
+
+
+// const userID = '"d00d5de3-e78e-4a17-9226-1fc5154de854"'
+
+
+
+// function GetQuery(userID){
+
+
+
+//   return data
+// }
+
+
+export default function ShowHistoryBlock({ userData }) {
+  let user_id = userData.user_id
+  globalData = userData
+
+  const LEAVE_HISTORY = gql`{
   leave_request(where: {user_id: {_eq: ${user_id}}}) {
     leave_id
     leave_type {
@@ -50,120 +70,91 @@ const LEAVE_HISTORY = gql`
 }
 `
 
-const CANCEL_LEAVE_REQUEST = gql`
-  mutation($leave_id: uuid!) {
-    CancelLeaveRequest(leave_id: $leave_id) {
-      affected_rows
-    }
-  }
-`
 
-function CancelHook(userID) {
+  console.log(userData)
+
+
   const [cancelRequest] = useMutation(CANCEL_LEAVE_REQUEST)
 
-  cancelRequest({
-    variables: {
-      leave_id: userID,
-    },
-  })
+  // let data = GetQuery(user_id)
+
+
+  const { loading, error, data } = useQuery(LEAVE_HISTORY)
+  if (loading) return "loading..."
+  if (error) return `Error! ${error.message}`
+  // if (data) console.log(data)
+
+
+  return (
+    <>
+      {data.leave_request.map(req => {
+        const fromDate = req.from
+        const toDate = req.to
+        const status = req.status
+        const requestDate = req.requested_on
+        const days = req.no_of_days
+        const type = req.leave_type.name
+        const leaveID = req.leave_id
+
+        return (
+          <>
+            <InfoWrap key={leaveID}>
+              <DateBox>
+                <p>
+                  <b>From: </b> {fromDate}
+                </p>
+                <p>
+                  <b>To: </b> {toDate}{" "}
+                </p>
+              </DateBox>
+
+              <p>
+                <b>Status:</b> {status}
+              </p>
+              <p>
+                {" "}
+                <b>requested on:</b> {requestDate}
+              </p>
+              <p>
+                <b>no. of days:</b> {days}
+              </p>
+              <p>
+                <b>Leave type:</b> {type}
+              </p>
+
+              {status === "PENDING" ? (
+                <BtnBox>
+                  <CancelBtn
+                    onClick={e => {
+                      e.preventDefault()
+                      cancelRequest({
+                        variables: {
+                          leave_id: user_id,
+                        },
+                      })
+                        .then(data => {
+                          console.log(
+                            "leave id " +
+                            user_id +
+                            "request cancelled"
+                          )
+                        })
+                        .catch(e => {
+                          console.log(e)
+                        })
+                    }}
+                  >
+                    {" "}
+                    Cancel
+                  </CancelBtn>
+                </BtnBox>
+              ) : (
+                  ""
+                )}
+            </InfoWrap>
+          </>
+        )
+      })}
+    </>
+  )
 }
-
-
-function withMyHook(Component) {
-  return function WrappedComponent(props) {
-    const { loading, error, data } = useQuery(LEAVE_HISTORY)
-    if (loading) return "loading..."
-    if (error) return `Error! ${error.message}`
-    return <Component {...props} myHookValue={data} />;
-  }
-}
-
-
-class ShowHistory extends React.Component {
-
-
-  render() {
-    const data = this.props.myHookValue;
-    const userData = this.props.userData
-    // console.log("testing: ")
-    // console.log(userData)
-    const userID = userData.user_id
-
-
-    return (
-      <>
-        {data.leave_request.map(req => {
-          const fromDate = req.from
-          const toDate = req.to
-          const status = req.status
-          const requestDate = req.requested_on
-          const days = req.no_of_days
-          const type = req.leave_type.name
-          const leaveID = req.leave_id
-
-          console.log("testing2: ")
-          console.log(data)
-
-          return (
-            <>
-              <InfoWrap key={leaveID}>
-                <DateBox>
-                  <p>
-                    <b>From: </b> {fromDate}
-                  </p>
-                  <p>
-                    <b>To: </b> {toDate}{" "}
-                  </p>
-                </DateBox>
-
-                <p>
-                  <b>Status:</b> {status}
-                </p>
-                <p>
-                  {" "}
-                  <b>requested on:</b> {requestDate}
-                </p>
-                <p>
-                  <b>no. of days:</b> {days}
-                </p>
-                <p>
-                  <b>Leave type:</b> {type}
-                </p>
-
-                {status === "PENDING" ? (
-                  <BtnBox>
-                    <CancelBtn
-                      onClick={e => {
-                        e.preventDefault()
-                        CancelHook(userID)
-                          .then(data => {
-                            console.log(
-                              "leave id " +
-                              userID +
-                              "request cancelled"
-                            )
-                          })
-                          .catch(e => {
-                            console.log(e)
-                          })
-                      }}
-                    >
-                      {" "}
-                      Cancel
-                    </CancelBtn>
-                  </BtnBox>
-                ) : (
-                    ""
-                  )}
-              </InfoWrap>
-            </>
-          )
-        })
-        }
-      </>
-    )
-
-  }
-}
-
-export default withMyHook(ShowHistory)
