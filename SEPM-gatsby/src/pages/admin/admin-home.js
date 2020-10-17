@@ -3,15 +3,30 @@ import React from "react"
 import { Link } from "gatsby"
 import Layout from "../../components/admin-layout"
 import ShowUser from "../admin/showUser"
+import styled from "styled-components"
+
+const BigWrap =styled.div`
+display:flex;
+flex-direciton:row;
+`
+const MainWrap = styled.div`
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  padding 3em;
+`
 
 
 export default function AdminHome() {
   // console.log(window.userData)
 
   return (
-    <div>
-      <Layout>
-        <h4>
+    <BigWrap>
+      <Layout/>
+      <MainWrap>
+        <h1>ADMIN HOME</h1>  
+          <h4>
           {window.userData.role_manager ?
             <Link to={`/manager/manager-home/`}>switch to manager </Link> : ''
           }</h4>
@@ -20,8 +35,8 @@ export default function AdminHome() {
           <Link to={`/staff/staff-home/`}>switch to staff </Link>
         </h4>
       </Layout>
-      <ShowUser />
-
-    </div>
+        <ShowUser/>
+      </MainWrap>
+    </BigWrap>
   )
 }

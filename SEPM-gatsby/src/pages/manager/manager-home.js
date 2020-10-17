@@ -6,13 +6,15 @@ import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
 import ManagerNoti from "../manager/managerNoti"
-import style from "styled-components";
+import styled from "styled-components";
+import {Link, graphql} from "gatsby"
 
-const Wrapper = style.div`
+
+const Wrapper = styled.div`
   display: flex;
 `
 
-const RequestWrap = style.div`
+const RequestWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -23,8 +25,23 @@ export default function ManagerHome() {
   return (
     <div>
       <Wrapper>
+
         <Layout>
-          <h4>{window.userData.role_admin ?
+          
+
+          {/* <ManagerNoti /> */}
+        </Layout>
+
+        <Layout/>
+        <nav>
+            <ul>
+              <Link>manager home</Link>
+              <Link>see all request</Link>
+              <Link>see notification</Link>
+            </ul> 
+          </nav>
+    
+    <h4>{window.userData.role_admin ?
             <Link to={`/admin/admin-home/`}>switch to admin </Link> : ''
           }</h4>
 
@@ -32,8 +49,6 @@ export default function ManagerHome() {
             <Link to={`/staff/staff-home/`}>switch to staff </Link>
           </h4>
 
-          {/* <ManagerNoti /> */}
-        </Layout>
 
         <RequestWrap>
           <ShowRequests />

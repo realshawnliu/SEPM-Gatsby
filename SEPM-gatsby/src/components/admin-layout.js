@@ -27,7 +27,7 @@ export default function AdminLayout({ children }) {
               <Link to={`/admin/admin-home/`}>Home</Link>
             </MenuItem>
             <MenuItem>
-              <Link to={`/admin/admin-new/`}>create new account</Link>
+              <Link to={`/admin/createAccount/`}>create new account</Link>
             </MenuItem>
             <MenuItem>
               <Link to={`/admin/admin-holiday/`}>add public holiday</Link>
