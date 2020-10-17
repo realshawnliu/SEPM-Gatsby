@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@200&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@200&display=swap');
 
 .selectVisible{
     visibility: visible;
@@ -39,7 +39,7 @@
     padding: 10px;
     height: 20%;
     white-space: nowrap;
-    font: "Quicksand";
+    font: 'Quicksand'
 }
 
 .success{

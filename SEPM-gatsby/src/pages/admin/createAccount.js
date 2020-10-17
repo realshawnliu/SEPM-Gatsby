@@ -203,7 +203,7 @@ const CreateAccount = () => {
                         <Form>
                             <FormWrap>
                                 <label>First name</label>
-                                <Field type ="text" name="firstName"></Field>
+                                <Field className={style.input} type ="text" name="firstName"></Field>
                                 <label>Last name</label>
                                 <Field type="text" name="lastName"></Field>
                                 <label>Email</label>
