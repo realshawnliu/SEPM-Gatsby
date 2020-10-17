@@ -17,7 +17,7 @@ function StaffLayout({ children }) {
     <div className="row">
       <div className="column left">
         <ProSidebar>
-          <SidebarHeader>Hi, Staff (staff name)</SidebarHeader>
+          <SidebarHeader>Staff Page</SidebarHeader>
           <Menu iconShape="square">
             <MenuItem>
               <Link to={`/staff/staff-home/`}>Home</Link>

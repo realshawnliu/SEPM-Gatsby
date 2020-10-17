@@ -21,7 +21,7 @@ export default function AdminLayout({ children }) {
     <div className="row">
       <div className="column left">
         <ProSidebar>
-          <SidebarHeader>Hi, Admin (admin name)</SidebarHeader>
+          <SidebarHeader>Admin Page</SidebarHeader>
           <Menu iconShape="square">
             <MenuItem>
               <Link to={`/admin/admin-home/`}>Home</Link>
