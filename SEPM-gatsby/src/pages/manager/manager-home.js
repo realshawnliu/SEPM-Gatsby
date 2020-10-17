@@ -5,9 +5,9 @@ import React, {
 import { Link } from "gatsby"
 import Layout from "../../components/manager-layout"
 import ShowRequests from "../manager/showRequest"
-import ManagerNoti from "../manager/managerNoti"
+// import ManagerNoti from "../manager/managerNoti"
 import styled from "styled-components";
-import {Link, graphql} from "gatsby"
+import { graphql} from "gatsby"
 
 
 const Wrapper = styled.div`

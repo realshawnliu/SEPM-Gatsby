@@ -29,7 +29,6 @@ export default function ManagerLayout({ children }) {
               <Link to={`/`}>login page</Link>
             </MenuItem>
           </Menu>
-          {/* <SidebarFooter>footer</SidebarFooter> */}
         </ProSidebar>
       </div>
 

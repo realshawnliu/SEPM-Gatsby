@@ -2,9 +2,6 @@ import { gql, useQuery, useMutation } from "@apollo/client"
 import React, { Component } from "react"
 import styled from "styled-components"
 
-
-let globalData
-
 //styling
 const InfoWrap = styled.div`
   background: #cfb7db;
@@ -38,51 +35,32 @@ const CANCEL_LEAVE_REQUEST = gql`
   }
 `
 
-
-// const userID = '"d00d5de3-e78e-4a17-9226-1fc5154de854"'
-
-
-
-// function GetQuery(userID){
-
-
-
-//   return data
-// }
-
-
-export default function ShowHistoryBlock({ userData }) {
-  let user_id = userData.user_id
-  globalData = userData
-
   const LEAVE_HISTORY = gql`{
-  leave_request(where: {user_id: {_eq: ${user_id}}}) {
-    leave_id
-    leave_type {
-      name
+    leave_request {
+      user_id
+      to
+      status
+      requested_on
+      no_of_days
+      leave_type_id
+      leave_id
+      from
+      leave_type {
+        name
+      }
     }
-    from
-    to
-    requested_on
-    no_of_days
-    status
-  }
 }
 `
 
-
-  console.log(userData)
-
+export default function ShowHistoryBlock({ userData }) {
+  let userID = userData.user_id
 
   const [cancelRequest] = useMutation(CANCEL_LEAVE_REQUEST)
-
-  // let data = GetQuery(user_id)
-
 
   const { loading, error, data } = useQuery(LEAVE_HISTORY)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
-  // if (data) console.log(data)
+  if (data) console.log(data)
 
 
   return (
@@ -129,13 +107,13 @@ export default function ShowHistoryBlock({ userData }) {
                       e.preventDefault()
                       cancelRequest({
                         variables: {
-                          leave_id: user_id,
+                          leave_id: userID,
                         },
                       })
                         .then(data => {
                           console.log(
                             "leave id " +
-                            user_id +
+                            userID +
                             "request cancelled"
                           )
                         })

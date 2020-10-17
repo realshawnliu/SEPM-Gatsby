@@ -34,9 +34,9 @@ export default function AdminHome() {
         <h4>
           <Link to={`/staff/staff-home/`}>switch to staff </Link>
         </h4>
-      </Layout>
+
         <ShowUser/>
-      </MainWrap>
-    </BigWrap>
+      </ MainWrap>
+    </ BigWrap>
   )
 }
