@@ -1,6 +1,9 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
-import React from "react"
+import React, { Component } from "react"
 import styled from "styled-components"
+
+
+let globalData
 
 //styling
 const InfoWrap = styled.div`
@@ -25,10 +28,34 @@ const DateBox = styled.div`
   flex-direction: space-evenly;
 `
 
-var user_id = '"d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a"'
 
-const LEAVE_HISTORY = gql`
-{
+
+const CANCEL_LEAVE_REQUEST = gql`
+  mutation($leave_id: uuid!) {
+    CancelLeaveRequest(leave_id: $leave_id) {
+      affected_rows
+    }
+  }
+`
+
+
+// const userID = '"d00d5de3-e78e-4a17-9226-1fc5154de854"'
+
+
+
+// function GetQuery(userID){
+
+
+
+//   return data
+// }
+
+
+export default function ShowHistoryBlock({ userData }) {
+  let user_id = userData.user_id
+  globalData = userData
+
+  const LEAVE_HISTORY = gql`{
   leave_request(where: {user_id: {_eq: ${user_id}}}) {
     leave_id
     leave_type {
@@ -43,30 +70,20 @@ const LEAVE_HISTORY = gql`
 }
 `
 
-const CANCEL_LEAVE_REQUEST = gql`
-  mutation($leave_id: uuid!) {
-    CancelLeaveRequest(leave_id: $leave_id) {
-      affected_rows
-    }
-  }
-`
 
-export default function ShowHistory() {
+  console.log(userData)
+
+
   const [cancelRequest] = useMutation(CANCEL_LEAVE_REQUEST)
+
+  // let data = GetQuery(user_id)
+
 
   const { loading, error, data } = useQuery(LEAVE_HISTORY)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
   // if (data) console.log(data)
 
-  // const obj = data.leave_request[0]
-  // console.log(obj)
-
-  // const leaveID = obj.leave_id
-  // console.log(leaveID)
-
-  // const fromDate = data.leave_request.map(req => req.from)
-  // console.log(fromDate)
 
   return (
     <>
@@ -105,21 +122,21 @@ export default function ShowHistory() {
                 <b>Leave type:</b> {type}
               </p>
 
-              {status == "PENDING" ? (
+              {status === "PENDING" ? (
                 <BtnBox>
                   <CancelBtn
                     onClick={e => {
                       e.preventDefault()
                       cancelRequest({
                         variables: {
-                          leave_id: "cc128f90-0255-4f34-bffc-c41d9ccae557",
+                          leave_id: user_id,
                         },
                       })
                         .then(data => {
                           console.log(
                             "leave id " +
-                              "cc128f90-0255-4f34-bffc-c41d9ccae557" +
-                              "request cancelled"
+                            user_id +
+                            "request cancelled"
                           )
                         })
                         .catch(e => {
@@ -132,8 +149,8 @@ export default function ShowHistory() {
                   </CancelBtn>
                 </BtnBox>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </InfoWrap>
           </>
         )

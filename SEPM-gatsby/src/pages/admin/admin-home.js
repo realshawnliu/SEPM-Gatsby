@@ -1,6 +1,6 @@
 import React from "react"
 // import { css } from "@emotion/core"
-// import { Link } from "gatsby"
+import { Link } from "gatsby"
 import Layout from "../../components/admin-layout"
 import ShowUser from "../admin/showUser"
 import styled from "styled-components"
@@ -19,11 +19,22 @@ const MainWrap = styled.div`
 
 
 export default function AdminHome() {
+  // console.log(window.userData)
+
   return (
     <BigWrap>
       <Layout/>
       <MainWrap>
         <h1>ADMIN HOME</h1>  
+          <h4>
+          {window.userData.role_manager ?
+            <Link to={`/manager/manager-home/`}>switch to manager </Link> : ''
+          }</h4>
+
+        <h4>
+          <Link to={`/staff/staff-home/`}>switch to staff </Link>
+        </h4>
+      </Layout>
         <ShowUser/>
       </MainWrap>
     </BigWrap>

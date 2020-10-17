@@ -17,7 +17,7 @@ export default function ManagerLayout({ children }) {
     <div className="row">
       <div className="column left">
         <ProSidebar>
-          <SidebarHeader>Hi, Manager (manager name)</SidebarHeader>
+          <SidebarHeader>Manager Page</SidebarHeader>
           <Menu iconShape="square">
             <MenuItem>
               <Link to={`/manager/manager-home/`}>Home</Link>
