@@ -2,21 +2,10 @@ import React from "react"
 // import { css } from "@emotion/core"
 import { Link } from "gatsby"
 // import { Col, Container, Row } from "react-bootstrap"
-
 import style from "../components/layout.module.css";
 import "bootstrap/dist/css/bootstrap.min.css"
-import {
-  ProSidebar,
-  Menu,
-  MenuItem,
-  // SubMenu
-} from "react-pro-sidebar"
 import "react-pro-sidebar/dist/css/styles.css"
-import {
-  SidebarHeader,
-  // SidebarFooter,
-  // SidebarContent
-} from "react-pro-sidebar"
+
 
 import styled from "styled-components";
 
@@ -27,9 +16,7 @@ const SideBar = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-
 `
-
 export default function AdminLayout({ children }) {
   return (
     <div className="row">

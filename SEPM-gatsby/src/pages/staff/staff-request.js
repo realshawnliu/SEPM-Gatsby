@@ -3,6 +3,23 @@ import Layout from "../../components/staff-layout"
 import { Form, Col, Button, ButtonGroup } from "react-bootstrap"
 import styled from "styled-components"
 import { gql, useMutation } from "@apollo/client"
+import style from "../admin/createAccount.module.css";
+
+//styling
+const FormWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+    padding: 3em;
+`
+
+const BtnGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`
+
 
 //query
 const LEAVE_REQUEST = gql`
@@ -37,25 +54,7 @@ const LEAVE_REQUEST = gql`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `
-// const [radioValue, setRadioValue] = useState('1');
-
-//   return (
-//     <>
-//       {radios.map((radio, idx) => (
-//        <ButtonGroup toggle className="mb-3">
-//         <div class="form-check">
-//           <input type="radio"  key={idx} name="tyepOfLeave" value={radio.value} checked={radioValue === radio.value}
-//           onChange={this.handleFormChange}
-//           ></input>
-//           {radio.name}
-//         </div>
-//       </ButtonGroup>
-//       ))}
-//     </>
-//   )
-// };
 
 const StaffRequest2 = () => {
   const [addLeaveRequest] = useMutation(LEAVE_REQUEST)
@@ -90,99 +89,92 @@ const StaffRequest2 = () => {
         {/* <Mutation mutation={LEAVE_REQUEST}>
               {(addLeaveRequest,{loading, error, data}) => (
                    */}
-
-        <Form
-          onSubmit={e => {
-            e.preventDefault()
-            addLeaveRequest({
-              variables: {
-                user_id: "d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a",
-                from: leaveStartDate,
-                to: leaveEndDate,
-                leave_type_id: "6c95ef3d-35e8-4cef-bfce-3dccedc4d908",
-                no_of_days: 0,
-                requested_on: "",
-                status: "",
-              },
-            })
-              .then(data => {
-                console.log("request has been submitted")
+        <FormWrap>
+          <Form
+            onSubmit={e => {
+              e.preventDefault()
+              addLeaveRequest({
+                variables: {
+                  user_id: "d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a",
+                  from: leaveStartDate,
+                  to: leaveEndDate,
+                  leave_type_id: "6c95ef3d-35e8-4cef-bfce-3dccedc4d908",
+                  no_of_days: 0,
+                  requested_on: "",
+                  status: "",
+                },
               })
-              .catch(e => {
-                console.log(e)
-              })
-          }}
-        >
-          <h2>Enter the Details of leave</h2>
-          <Form.Group controlId="">
-            <Form.Label>
-              <b>Leave Start</b>
-            </Form.Label>
-            <input
-              type="text"
-              name="leaveStartDate"
-              value={leaveStartDate}
-              onChange={event => setLeaveStartDate(event.target.value)}
-              required
-            />
-          </Form.Group>
+                .then(data => {
+                  console.log("request has been submitted")
+                })
+                .catch(e => {
+                  console.log(e)
+                })
+            }}
+          >
+          <h1>Enter the Details of leave</h1>
+          
+            <Form.Group controlId="">
+              <label><b>Leave Start</b></label>
+              <input
+                className={style.input}
+                type="text"
+                name="leaveStartDate"
+                value={leaveStartDate}
+                onChange={event => setLeaveStartDate(event.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group controlId="">
-            <Form.Label>
-              <b>Leave End</b>
-            </Form.Label>
-            <input
-              type="text"
-              name="leaveEndDate"
-              value={leaveEndDate}
-              onChange={event => setLeaveEndDate(event.target.value)}
-              required
-            />
-          </Form.Group>
+            <Form.Group controlId="">
+              <Form.Label>
+                <b>Leave End</b>
+              </Form.Label>
+              <input
+                className={style.input}
+                type="text"
+                name="leaveEndDate"
+                value={leaveEndDate}
+                onChange={event => setLeaveEndDate(event.target.value)}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group controlId="">
-            <Form.Label>
-              <b>Leave Type</b>
-            </Form.Label>
+            <Form.Group controlId="">
 
-            {radios.map(radio => (
-              <ButtonGroup toggle className="mb-3">
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    key={radio.uniqueId}
-                    name="tyepOfLeave"
-                    value={radio.value}
-                    checked={radioValue === radio.value}
-                    onChange={event => {
-                      setRadioValue(event.target.value)
-                    }}
-                  ></input>
-                  {radio.name}
-                </div>
-              </ButtonGroup>
-            ))}
+              <Form.Label>
+                <b>Leave Type</b>
+              </Form.Label>
 
-            <Col xs="auto">
-              <Button type="submit" className="mb-2">
-                Submit
-              </Button>
-            </Col>
-            {/* 
-                    <div style={{ padding: '20px' }}>
-                        {loading && <p>Loading...</p>}
-                        {error && (
-                        <p>
-                            An unknown error has occured, please try again
-                            later...
-                        </p>
-                        )}
-                        {data && <p>{data.signUp.result}</p>}
-                     </div> */}
-          </Form.Group>
-        </Form>
-        )
-        {/* </Mutation> */}
+              <BtnGroup>
+                {radios.map(radio => (
+                  <ButtonGroup toggle className="mb-3">
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        key={radio.uniqueId}
+                        name="tyepOfLeave"
+                        value={radio.value}
+                        checked={radioValue === radio.value}
+                        onChange={event => {
+                          setRadioValue(event.target.value)
+                        }}
+                      ></input>
+                      {radio.name}
+                    </div>
+                  </ButtonGroup>
+                ))}
+              </BtnGroup>
+             
+
+              <Col xs="auto">
+                <button className={style.submitBtn} type="submit">
+                  Submit
+                </button>
+              </Col>
+            </Form.Group>
+          </Form>
+        </FormWrap>
       </Wrapper>
     </div>
   )

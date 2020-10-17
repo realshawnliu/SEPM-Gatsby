@@ -1,11 +1,12 @@
 import React from 'react';
 import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
 import { gql, useMutation, useQuery} from '@apollo/client';
-import Layout from "../../components/admin-layout"
+import Layout from "../../components/admin-layout";
 import styled from "styled-components";
 import ManagerDropDrown from "../admin/mangerDropDown";
 import ManagerDropDown from '../admin/mangerDropDown';
 import style from "../admin/createAccount.module.css";
+
 
 const NEW_USER = gql`
 mutation($first_name: String!, $last_name: String!, $email: String!, $password: String!, $manager_id: uuid, $role_manager: Boolean!, $role_admin: Boolean!) {
@@ -42,22 +43,7 @@ const Main = styled.div`
     background: 
 `
 
-const ErrorBox = styled.div`
-    border: 1px solid red;
-    margin-top: 1em;
-`
-function FormikControl(props) {
-
-}
-
 const CreateAccount = props => {
-    // const {
-    //     values,
-    //     handleChange,
-    //     handleBlur,
-    //     handleSubmit,
-    //     setFieldValue
-    //   } = props;
 
     const [addAccount] =useMutation(NEW_USER);
     let adminRoleB = false;
@@ -71,14 +57,6 @@ const CreateAccount = props => {
     if(loading) return 'loading';
     if(error) {return error.message};
 
-    // const generateId = () => {
-    //     data.user.map((ele) => {const id = ele.user_id
-    //     return (
-    //         <option
-    //             value = {id} label={id}
-    //         />
-    //     )}
-    // )}
 
     var pattern = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[$*&+?><)(])[\w$*&+?><)(]{10,}$/;
        
@@ -154,18 +132,6 @@ const CreateAccount = props => {
                             managerRoleB = true;
                         }
                     }}
-
-                    // managerValue ={(values) => {
-                    //     console.log(values.managerId)
-                    //     if(values.managerId === ""){
-                    //         managerIdValue = null;
-                    //     }
-                    //     else{
-                    //         managerIdValue = values.managerId;
-                    //         console.log(managerIdValue);
-                    //     }
-                    // }}
-
                     
                     onSubmit ={ async (values, actions) => {
 

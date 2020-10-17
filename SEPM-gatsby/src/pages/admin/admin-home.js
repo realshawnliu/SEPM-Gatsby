@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 import Layout from "../../components/admin-layout"
 import ShowUser from "../admin/showUser"
 import styled from "styled-components"
+import style from "../admin/createAccount.module.css";
 
 const BigWrap =styled.div`
 display:flex;
@@ -28,11 +29,11 @@ export default function AdminHome() {
         <h1>ADMIN HOME</h1>  
           <h4>
           {window.userData.role_manager ?
-            <Link to={`/manager/manager-home/`}>switch to manager </Link> : ''
+            <Link className={style.link} to={`/manager/manager-home/`}>switch to manager </Link> : ''
           }</h4>
 
         <h4>
-          <Link to={`/staff/staff-home/`}>switch to staff </Link>
+          <Link className={style.link} to={`/staff/staff-home/`}>switch to staff </Link>
         </h4>
 
         <ShowUser/>
