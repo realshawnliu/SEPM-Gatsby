@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@200&display=swap');
+
 .selectVisible{
     visibility: visible;
     padding-left: 5rem;
@@ -12,6 +14,7 @@
     border-radius: 4px;
     border: none;
     margin: 1em;
+    white-space: nowrap;
 
 }
 
@@ -20,14 +23,23 @@
     border-radius: 4px;
     border: none;
     margin: 1em;
+    width: 50%;
+    padding: 10px;
+    white-space: nowrap;
 }
 
 .changeRole{
     background: #9E9999;
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     color: black;
     margin: 1em;
+    text-decoration: none;
+    box-shadow: antiquewhite;
+    padding: 10px;
+    height: 20%;
+    white-space: nowrap;
+    font: 'Quicksand'
 }
 
 .success{

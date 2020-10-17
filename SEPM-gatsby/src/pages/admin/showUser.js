@@ -5,10 +5,18 @@ import styled from "styled-components"
 import style from "../admin/showUser.module.css"
 
 //styling
+const TextInfo= styled.div`
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`
 const InfoWrap = styled.div`
   background: #EBE8E8;
-  width: 100%;
+  width: 80%;
   margin-bottom: 1em;
+  display:flex;
+  flex-direction: row;
+ 
 `
 const DeactivateBtn = styled.button`
   background: #f53f87;
@@ -16,6 +24,7 @@ const DeactivateBtn = styled.button`
   border-radius: 4px;
   color: white;
   margin: 1em;
+  height:20%;
 `
 
 const ChangeRoleBtn = styled.button`
@@ -26,6 +35,10 @@ const ChangeRoleBtn = styled.button`
   margin: 1em;
 `
 
+const RoleBox =styled.div`
+  display:flex;
+  flex-direction: row;
+`
 
 const BtnBox = styled.div`
   display: flex;
@@ -93,42 +106,21 @@ export default function ShowHistory() {
         return (
           <>
             <InfoWrap key={userID}>
-              <p>
-                <b>Name</b> : {firstName} {lastName}
-              </p>
+              <TextInfo>
+                <p>
+                  <b>Name</b> : {firstName} {lastName}
+                </p>
+  
+                <div className={style.falseRole}>{isAdmin && isManager? " admin & manager " : isAdmin? "admnin" : isManager? "manager" : "staff" }</div>
 
-              <p>
-                <b>role :</b>{" "}
-                {isAdmin ? "Admin" : isManager ? "Manager" : "Staff"}
+                <p>
+                  <b>Email:</b> {email}
+                </p>
 
-                <BtnBox>
-                  <button className={isAdmin? style.trueRole : style.falseRole}
-                    onclick= {e => {
-                      e.preventDefault()
-                      updateRole({
-                        variables:{
-                          user_id: userID,
-                          role_admin: true,
-                          role_manager: {},
-                        }
-                      })
-                    }}
-        
-                  >Admin</button>
-                  <button className={isManager? style.trueRole: style.falseRole}
-                    name="managerBtn"
-                  >Manager</button>
-                </BtnBox>
-                
-              </p>
-
-              <p>
-                <b>Email:</b> {email}
-              </p>
-
-              <p>
-                <b>Status:</b> {isActive ? "Active" : "Deactivated"}
-              </p>
+                <p>
+                  <b>Status:</b> {isActive ? "Active" : "Deactivated"}
+                </p>
+              </TextInfo>
 
               {isActive ? (
                 <BtnBox>

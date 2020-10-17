@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, useMutation, useQuery} from '@apollo/client';
+import {Field} from 'formik';
 
 
 const LIST_MANAGER = gql`{
@@ -21,7 +22,11 @@ const ManagerDropDown = (props) => {
     return(
         data.user.map((ele) => {
             return(
-                <option key={ele.user_id} label={ele.user_id} value={ele.user_id}/>
+                // <option key={ele.user_id} label={ele.user_id} value={ele.user_id}/>
+            <label>
+                <Field type="radio" name="manager_Num" value={ele.user_id}/>
+                {ele.user_id}
+            </label>
             )
         })
     )
