@@ -12,34 +12,27 @@ const InfoWrap = styled.div`
   padding: 5px;
 `
 
-var leave_balance_user_id = '"d0bc7c2d-a54e-4d9b-8d7f-0a982086de6a"'
-
 const LEAVE_BALANCE = gql`
 {
-  leave_balance(where: {user_id: {_eq: ${leave_balance_user_id}}}) {
+  leave_balance {
     annual
+    carer
     parental
     sick_with_certi
     sick_without_certi
-    carer
+    user_id
   }
 }
 `
 
-export default function ShowHistory() {
+export default function ShowHistory({ userData }) {
+  const userID = userData.user_id
+
   const { loading, error, data } = useQuery(LEAVE_BALANCE)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
   //   if (data) console.log(data)
 
-  //   const obj = data.user[0]
-  //   console.log(obj)
-
-  // const leaveID = obj.leave_id
-  // console.log(leaveID)
-
-  // const fromDate = data.leave_request.map(req => req.from)
-  // console.log(fromDate)
 
   return (
     <>
@@ -49,37 +42,31 @@ export default function ShowHistory() {
         const sickWithCert = req.sick_with_certi
         const sickWithoutCert = req.sick_without_certi
         const carer = req.carer
+        const requestUserID = req.user_id
 
-        // console.log(annual)
-        // console.log(last)
-        // console.log(isActive)
-        // console.log("role: " + role)
-
-        return (
-          <>
-            <InfoWrap key={leave_balance_user_id}>
-              <p>
-                <b>annual:</b> {annual}
-              </p>
-
-              <p>
-                <b>parental:</b> {parental}
-              </p>
-
-              <p>
-                <b>sick With Certificate:</b> {sickWithCert}
-              </p>
-
-              <p>
-                <b>sick Without Certificate:</b> {sickWithoutCert}
-              </p>
-
-              <p>
-                <b>carer:</b> {carer}
-              </p>
-            </InfoWrap>
-          </>
-        )
+        if (requestUserID === userID) {
+          return (
+            <>
+              <InfoWrap key={userID}>
+                <p>
+                  <b>annual:</b> {annual}
+                </p>
+                <p>
+                  <b>parental:</b> {parental}
+                </p>
+                <p>
+                  <b>sick With Certificate:</b> {sickWithCert}
+                </p>
+                <p>
+                  <b>sick Without Certificate:</b> {sickWithoutCert}
+                </p>
+                <p>
+                  <b>carer:</b> {carer}
+                </p>
+              </InfoWrap>
+            </>
+          )
+        }
       })}
     </>
   )

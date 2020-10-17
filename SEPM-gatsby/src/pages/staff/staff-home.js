@@ -41,8 +41,13 @@ export default function StaffHome() {
 
         <ShowBalance/>
 
+<<<<<<< HEAD
       </Wrap>
        
     </Main>
+=======
+      <ShowBalance userData={window.userData}/>
+    </div>
+>>>>>>> 8cda464f123d89658d3dff41faf00e0ef2fe67da
   )
 }
