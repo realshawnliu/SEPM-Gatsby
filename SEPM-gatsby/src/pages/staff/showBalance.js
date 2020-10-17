@@ -4,9 +4,12 @@ import styled from "styled-components"
 
 //styling
 const InfoWrap = styled.div`
-  background: #cfb7db;
+  background: transparent;
   width: 100%;
   margin-bottom: 1em;
+  border: white solid 1px;
+  border-radius: 5px;
+  padding: 5px;
 `
 
 const LEAVE_BALANCE = gql`

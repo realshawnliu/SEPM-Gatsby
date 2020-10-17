@@ -66,3 +66,17 @@ label{
     color: #fff;
     font-family: "Quicksand";
 }
+
+link{
+    text-decoration: none;
+    color: #fff;
+    font-family: "Quicksand";
+}
+
+link:hover{
+
+    text-decoration: none;
+    color: #958E8E;
+    font-family: "Quicksand";
+
+}

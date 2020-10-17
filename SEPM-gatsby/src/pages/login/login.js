@@ -2,35 +2,62 @@ import React from "react"
 // import { css } from "@emotion/core"
 import { Link } from "gatsby"
 // import { Form, Col, Button } from "react-bootstrap"
-import style from "styled-components"
-import {
-  gql, useMutation,
-  useQuery
-} from '@apollo/client';
+import styled from "styled-components";
+import {gql, useMutation,useQuery} from '@apollo/client';
 // import PropTypes from 'prop-types';
+import style from "../admin/createAccount.module.css";
 import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-const Error = style.h2`
+const Error = styled.h2`
   color: red;
 `
 
-const Confirmation = style.h1`
+const Confirmation = styled.h1`
     color: green;
 `
 
-const Main = style.div`
+const Main = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 3em;
+    padding: 2em;
+    height: 100vh;
+    border: white;
+    webkit-box-shadow: 10px 10px 30px 0px rgba(240,231,240,0.77);
+    -moz-box-shadow: 10px 10px 30px 0px rgba(240,231,240,0.77);
+    box-shadow: 10px 10px 30px 0px rgba(240,231,240,0.77);
+    width: 100%;
+    align-item: center;
 `
-
-const FormWrap = style.div`
-    display:flex;
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+`
+const Title = styled.div`
+  display: flex;
+  margin: 30px;
+  justify-content: center;
+`
+const FormWrap = styled.div`
+    display: flex;
     flex-direction: column;
     width: 100%;
+    height: 60%;
+
+`
+const Box = styled.div`
+  -webkit-box-shadow: 20px 20px 20px -16px rgba(250,250,250,1);
+  -moz-box-shadow: 20px 20px 20px -16px rgba(250,250,250,1);
+  box-shadow: 20px 20px 20px -16px rgba(250,250,250,1);
+  width: 60%;
+  border: 1px solid white;
+  border-radius: 30px;
+  margin-left: 20%;
+  margin-right: 20%;
 `
 
 const ALL_USER = gql`
@@ -50,6 +77,7 @@ const ALL_USER = gql`
 `
 
 const LoginPage = () => {
+  let output = {}
   const { loading, error, data } = useQuery(ALL_USER)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
@@ -88,14 +116,23 @@ const LoginPage = () => {
       }
       if (loginCheck === true) {
         console.log("login successfully")
+        output.message= `login successfully`;
+        output.classes= style.success
+
       }
       else {
+<<<<<<< HEAD
+        console.log("login unsuccessfully")
+        output.message =`login unsuccessfully`;
+        output.classes = style.fail;
+=======
         console.log("login failed")
         // return(
         //   <Popup trigger={<button> Trigger</button>} position="right center">
         //   <div>Popup content here !!</div>
         // </Popup>
         // )
+>>>>>>> 8cda464f123d89658d3dff41faf00e0ef2fe67da
       }
     }
   }
@@ -105,67 +142,82 @@ const LoginPage = () => {
       {/* <Link to={`/admin/admin-home/`}>admin </Link>
       <Link to={`/staff/staff-home/`}>staff </Link>
       <Link to={`/manager/manager-home/`}>manager</Link> */}
+      <Box>
+        <Title>
+          <h1>Login Page</h1>
+        </Title>
+        <Wrap>
 
-      <h1>Login Page</h1>
-      <Formik
-        initialValues={{
-          email: ``,
-          password: ``,
-        }}
+          <Formik
+            initialValues={{
+              email: ``,
+              password: ``,
+            }}
 
-        validate={(values, actions) => {
-          let errors = {}
+            validate={(values, actions) => {
+              let errors = {}
 
-          if (!values.email) {
-            errors.email = `email is required`
-          }
-          else if (!values.password) {
-            errors.password = `password is required`
-          }
-          else if (values.role === '') {
-            errors.role = `You must choose an account type`
-          }
-          return errors
-        }}
+              if (!values.email) {
+                errors.email = `email is required`
+              }
+              else if (!values.password) {
+                errors.password = `password is required`
+              }
+              else if (values.role === '') {
+                errors.role = `You must choose an account type`
+              }
+              return errors
+            }}
 
-        onSubmit={async (values, actions) => {
-          await new Promise((r) => setTimeout(r, 500));
+            onSubmit={async (values, actions) => {
+              await new Promise((r) => setTimeout(r, 500));
+              
 
-          try {
-            loginHandler(values.email, values.password, values.role)
-          }
-          catch (err) {
-            console.log(err)
-          }
+              try {
+                loginHandler(values.email, values.password, values.role)
+              }
+              catch (err) {
+                console.log(err)
+                output.message=err.graphQLErrors[0].message
+                output.classes = style.fail
+              }
 
-          if (loginCheck === true) {
-            let message = {}
-            message.email = `login successfully`
-          }
-        }}
-      >
-        {({ isSubmitting, status, handleChange, handleBlur, values }) => (
-          <Form>
-            <FormWrap>
-              <label>Email</label>
-              <Field type="email" name="email"></Field>
-              <label>password</label>
-              <Field type="password" name="password"></Field>
-              <label>Account type: </label>
-              <Field type="radio" name="role" value="staff"></Field> Normal staff
-              <Field type="radio" name="role" value="manager"></Field> Manager
-              <Field type="radio" name="role" value="admin"></Field> Admin
-              <button type="submit" disabled={isSubmitting}>Login</button>
-              <ErrorMessage color='red' name='email' className='field-validation' component='div' />
-              <ErrorMessage color='red' name='password' className='field-validation' component='div' />
-              <ErrorMessage color='red' name='role' className='field-validation' component='div' />
-              <ErrorMessage color='red' name='db' className='field-validation' component='div' />
+              if (loginCheck === true) {
+                
+                output.message = `login successfully`
+                output.type=`success`
+                output.classes= style.success
+              }
+              actions.setStatus(output)
+              actions.setSubmitting(true)
+            }}
+          >
+            {({ isSubmitting, status, handleChange, handleBlur, values }) => (
+            
+              <Form>
+                <FormWrap>
+                  <label>Email</label>
+                  <Field className={style.input} type="email" name="email"></Field>
+                  <label>password</label>
+                  <Field className={style.input} type="password" name="password"></Field>
+                  <label>Account type: </label>
+                  <Field type="radio" name="role" value="staff"></Field> Normal staff
+                  <Field type="radio" name="role" value="manager"></Field> Manager
+                  <Field type="radio" name="role" value="admin"></Field> Admin
+                  <button type="submit" disabled={isSubmitting}>Login</button>
+                  <ErrorMessage  name='email' className={style.fail} component='div' />
+                  <ErrorMessage  name='password' className={style.fail} component='div' />
+                  <ErrorMessage  name='role' className={style.fail} component='div' />
+                  <ErrorMessage  name='db' className={style.fail} component='div' />
 
-              {status && <div className={status.classes}>{status.message}</div>}
-            </FormWrap>
-          </Form>
-        )}
-      </Formik>
+                  {status && <div className={status.classes}>{status.message}</div>}
+                </FormWrap>
+              </Form>
+            )}
+          </Formik>
+        </Wrap>
+      </Box>
+      
     </Main>
   )
 }
