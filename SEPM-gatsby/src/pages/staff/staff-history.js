@@ -6,14 +6,14 @@ import ShowHistory from "../staff/showHistory"
 
 
 export default function StaffHistory() {
+// console.log(window.userData)
+
   return (
     <div>
       <Layout>
-        <p>request history page</p>
-        <p>see leave request history</p>
-        <p>cancel leave request</p>
+
       </Layout>
-      <ShowHistory/>
+      <ShowHistory userData={window.userData}/>
     </div>
   )
 }

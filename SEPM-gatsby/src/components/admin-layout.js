@@ -34,28 +34,6 @@ export default function AdminLayout({ children }) {
   return (
     <div className="row">
       <div className="column left">
-        {/* <ProSidebar>
-          <SidebarHeader>Hi, Admin (admin name)</SidebarHeader>
-          <Menu iconShape="square">
-            <MenuItem>
-              <Link to={`/admin/admin-home/`}>Home</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to={`/admin/createAccount/`}>create new account</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to={`/admin/admin-holiday/`}>add public holiday</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to={`/admin/admin-limit/`}>change leave limit</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to={`/`}>login page</Link>
-            </MenuItem>
-          </Menu>
-          {/* <SidebarFooter>footer</SidebarFooter> */}
-        {/* </ProSidebar> */} 
-
         <SideBar>
             <Link className={style.link} to={`/admin/admin-home/`}>Home</Link>
             <Link className={style.link} to={`/admin/createAccount/`}>create new account</Link>
