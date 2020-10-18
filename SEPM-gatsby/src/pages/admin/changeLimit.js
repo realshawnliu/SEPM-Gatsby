@@ -2,31 +2,31 @@ import React from "react"
 // import { css } from "@emotion/core"
 import { Link } from "gatsby"
 // import { Form, Col, Button } from "react-bootstrap"
-import style from "styled-components"
+import styled from "styled-components"
 import {
     gql, useMutation,
     useQuery
 } from '@apollo/client';
 // import PropTypes from 'prop-types';
 import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
+import style from "../admin/createAccount.module.css";
 
-
-const Error = style.h2`
+const Error = styled.h2`
   color: red;
 `
 
-const Confirmation = style.h1`
+const Confirmation = styled.h1`
     color: green;
 `
 
-const Main = style.div`
+const Main = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 3em;
 `
 
-const FormWrap = style.div`
+const FormWrap = styled.div`
     display:flex;
     flex-direction: column;
     width: 100%;
@@ -156,6 +156,35 @@ const ChangeLimitPage = () => {
                     newUnpaid: unpaidLimit,
                     newAnnual: annualLimit,
                 }}
+
+                validate ={( values, actions) => {
+                    let errors={}
+
+                    if(!values.newCarer){
+                        errors.newCarer =`new carer limit cannot be empty `
+                    }
+                    else if (!values.newParental){
+                        errors.newParental =` new parental limit cannot be empty`
+                    }
+                    else if(!values.newSickWithCert){
+                        errors.newSickWithCert = `sick with cert limit cannot be empty`
+                    }
+                    else if (!values.newSickWithoutCert){
+                        errors.newSickWithoutCert = `sick without cert limit cannot be empty`
+                    }
+                    else if (!values.newBlood){
+                        errors.newBlood = ` Blood donor limit cannot be empty`
+                    }
+                    else if (!values.newUnpaid){
+                        errors.newUnpaid = `unpaid limit cannot be empty `
+                    }
+                    else if (!values.newAnnual){
+                        errors.newAnnual = ` anuual limit cannot be empty`
+                    }
+
+                    return errors
+                }}
+
                 onSubmit={async (values, actions) => {
                     await new Promise((r) => setTimeout(r, 500));
 
@@ -177,19 +206,35 @@ const ChangeLimitPage = () => {
                     <Form>
                         <FormWrap>
                             <label>carer leaves:</label>
-                            <Field name="newCarer"></Field>
+                            <Field className={style.input} name="newCarer"></Field>
+                            <ErrorMessage name='newCarer' className={style.fail} component='div'/>
+
+
                             <label>parental leaves:</label>
-                            <Field name="newParental"></Field>
+                            <Field className={style.input} name="newParental"></Field>
+                            <ErrorMessage name="newParental" className={style.fail} component='div'/>
+
+
                             <label>sick leaves with certificate:</label>
-                            <Field name="newSickWithCert"></Field>
+                            <Field className={style.input} name="newSickWithCert"></Field>
+                            <ErrorMessage name="newSickWithCert" className={style.fail} component='div'/>
+
+                        
                             <label>sick leaves without certificate:</label>
-                            <Field name="newSickWithoutCert"></Field>
+                            <Field className={style.input} name="newSickWithoutCert"></Field>
+                            <ErrorMessage name="newSickWithoutCert" className={style.fail} component='div'/>
+
                             <label>blood donor leaves:</label>
-                            <Field name="newBlood"></Field>
+                            <Field className={style.input} name="newBlood"></Field>
+                            <ErrorMessage name="newBlood" className={style.fail} component='div'/>
+
                             <label>unpaid leaves:</label>
-                            <Field name="newUnpaid"></Field>
+                            <Field className={style.input} name="newUnpaid"></Field>
+                            <ErrorMessage name="newUnpaid" className={style.fail} component='div'/>
+
                             <label>annual leaves:</label>
-                            <Field name="newAnnual"></Field>
+                            <Field className={style.input} name="newAnnual"></Field>
+                            <ErrorMessage name="newAnnual" className={style.fail} component='div'/>
 
                             <button type="submit" disabled={isSubmitting}>Update</button>
                             {status && <div className={status.classes}>{status.message}</div>}
