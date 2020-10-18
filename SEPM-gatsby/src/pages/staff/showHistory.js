@@ -90,9 +90,6 @@ export default function ShowHistoryBlock({ userData }) {
     )
   }
 
-  // if(){
-
-  // }
   return (
     <>
       {data.leave_request.map(req => {
