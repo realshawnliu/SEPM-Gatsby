@@ -178,6 +178,7 @@ const StaffRequest2 = () => {
 
                   <Field
                     as="select"
+                    className={style.input}
                     name="typeOfLeave" 
                     component="select"
                     values={values.typeOfLeave}

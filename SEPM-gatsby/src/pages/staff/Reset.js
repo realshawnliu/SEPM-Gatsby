@@ -1,26 +1,17 @@
 import React from "react"
-import {
-  Form,
-  // Col, 
-  Button,
-  // FormControl 
-} from "react-bootstrap"
-import style from "styled-components"
-import {
-  gql, useMutation,
-  // useQuery
-} from '@apollo/client';
+import styled from "styled-components"
+import {gql, useMutation} from '@apollo/client';
 import useForm from "./useForm";
-// import PropTypes from 'prop-types';
+import style from "../admin/showUser.module.css";
+import { Formik, Form, Field, errors, ErrorMessage } from 'formik';
 
 //style
-const Error = style.h2`
-  color: red;
+const FormWrap = styled.div`
+    display:flex;
+    flex-direction: column;
+    width: 100%;
 `
 
-const Confirmation = style.h1`
-    color: green;
-`
 
 //query
 const UPDATE_PASSWORD = gql`
@@ -34,89 +25,118 @@ mutation($user_id: uuid!, $password: String!) {
 const confirmationMessage = "";
 
 function Reset({ userData }) {
-  const userID = userData.user_id
+    let sent = false;
+    var pattern = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[$*&+?><)(])[\w$*&+?><)(]{10,}$/;
+    const userID = userData.user_id
 
-  const { inputs, handleChange, resetForm } = useForm({
-    password: '',
-    confirmPassword: '',
-  });
+//   const { inputs, handleChange, resetForm } = useForm({
+//     password: '',
+//     confirmPassword: '',
+//   });
 
-  const [resetPassword, { error, loading, data }] = useMutation(UPDATE_PASSWORD, {
-    variables: {
-      user_id: userID,
-      password: inputs.password,
-    }
-  })
+//   const [resetPassword, { error, loading, data }] = useMutation(UPDATE_PASSWORD, {
+//     variables: {
+//       user_id: userID,
+//       password: inputs.password,
+//     }
+//   })
+
+const [resetPassword] = useMutation(UPDATE_PASSWORD);
 
   return (
+    <Formik
+        initialValues={{
+            password:``,
+            confirmPassword: ``
+        }}
 
-    <Form
-      controlId=""
+        validate={(values) =>{
+            let errors={}
 
-      onSubmit={async e => {
-        e.preventDefault();
-        const res = await resetPassword();
-        console.log(res);
-        resetForm();
-        //display message on front page to show confirm 
-      }
-      }
-    // onSubmit={(e) => {
-    //   e.preventDefault();
-    //   updatePassword({
-    //     variables: {
-    //       //currently hardcoded 
-    //       user_id: "068dfbe3-e725-4ab2-aac9-307dd6659b22",
-    //       password: "change2",
-    //   },
-    //   }).then((data) => {
-    //       console.log("password has been changed")
+            if(!values.password){
+                errors.password = `please enter new password`
+            }
+            else if(!pattern.test(values.password)){
+                errors.password = `Passwords should be at least 10 characters, including upper and lower case letters, digits and at least one special character out of !, $ *, &, +, ?, <, >, (, )`
+            }
+            else if(!values.confirmPassword){
+                errors.confirmPassword = `Please re-enter password`
+            }
+            else if(values.confirmPassword != values.password){
+                errors.confirmPassword = `confirm password does not match new password`
+            }
+            return errors
+        }}
 
-    //   })
-    //   .catch((e) => {
-    //       console.log(e)
-    //   });
-    // }}
+        onSubmit={ async (values, actions) =>{
+            let output={};
+            await new Promise ((r) => setTimeout(r,500));
+            try{
+                await resetPassword({
+                    variables:{
+                        user_id: userID,
+                        password: values.password
+                    }
+                }).then((data) =>{
+                    sent =true;
+                })
+            }
+            catch(err){
+                output.message = err.graphQLErrors[0].message 
+                console.log(output.message)
+                output.type=`error`
+                output.classes = style.fail
+            }
+
+            if (sent === true ){
+                output.message=`Password Changed`
+                output.type=`success`
+                output.classes = style.success
+                actions.resetForm()
+            }
+            actions.setStatus(output)
+            actions.setSubmitting(true)
+
+        }}
     >
-      <fieldset disabled={loading} aria-busy={loading} />
-      <h2>Change Your Password</h2>
-      {data && data.resetPassword && data.resetPassword.message}
 
-      <Confirmation>{confirmationMessage}</Confirmation>
+        {({ isSubmitting, status, handleChange, values}) => (
+            <Form>
+                <FormWrap>
+                {status && <div className={status.classes}>{status.message}</div>}
+                <h1>Change Your Password</h1>
+      
+                <label>Enter new password</label>
+                <Field
+                    className={style.input}
+                    type="password"
+                    name="password"
+                    icon="user circle"
+                    placeholder="Enter new password"
+                />
+                <ErrorMessage name='password' className={style.fail} component='div'/>
+        
+                <label>Confirm new password</label>
+                <Field
+                    className={style.input}
+                    type="password"
+                    name="confirmPassword"
+                    icon="user circle"
+                    placeholder="Renter new password"
+                    required
+                />
+                <ErrorMessage name='confirmPassword' className={style.fail} component='div'/>
+            
+                <button className={style.submitBtn} type="submit" disabled={isSubmitting} >Confirm</button>
+                </FormWrap>
+          </Form>
 
-      <div><Error error={error} /></div>
+        )}
+        
 
 
-      <Form.Group controlId="">
-        <Form.Label>Enter new password</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          icon="user circle"
-          placeholder="Enter new password"
-          value={inputs.password}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group controlId="">
-        <Form.Label>Confirm new password</Form.Label>
-        <Form.Control
-          type="password"
-          name="confirmPassword"
-          icon="user circle"
-          placeholder="Renter new password"
-          value={inputs.confirmPassword}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-
-      <Button type="submit">Confirm</Button>
-
-    </Form>
-
+    </Formik>
+    
   )
 }
 
