@@ -148,7 +148,7 @@ const StaffRequest2 = () => {
               }
 
               if (sent === true ){
-                output.message=`Account successfully created`
+                output.message=`Request successfully submitted`
                 output.type=`success`
                 output.classes = style.success
                 actions.resetForm()

@@ -66,7 +66,7 @@ export default function StaffHome() {
           </div>
           </BtnBox>
 
-          <NotifyMsg>{message}</NotifyMsg>
+          {needNotify === true? <NotifyMsg>{message}</NotifyMsg> :``}
         <ShowBalance userData={window.userData}/>
 
       </Wrap>
