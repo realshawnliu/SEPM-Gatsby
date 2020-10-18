@@ -70,7 +70,7 @@ const CreateAccount = props => {
                         firstName:``,
                         lastName:``,
                         email:``,
-                        managerId:``,
+                        managerId:null,
                         password:``,
                         role:``
                         }}
@@ -141,7 +141,7 @@ const CreateAccount = props => {
                         }
 
                         await new Promise ((r) => setTimeout(r,500));
-                    
+
                         let output={};
                         
                         try {
