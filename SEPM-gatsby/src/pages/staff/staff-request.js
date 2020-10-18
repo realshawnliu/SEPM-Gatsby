@@ -190,9 +190,7 @@ const StaffRequest2 = () => {
                 <ErrorMessage name='leaveEndDate' className={style.fail} component='div' />
 
                 { isSubmitting ? <div>loading....</div> : ``}
-                {status && <div className={status.classes}>{status.message}</div>}
-
-                  <ErrorMessage name='leaveStartDate' className={style.fail} component='div'/>        
+                      
                   <ErrorMessage name='typeOfLeave' className={style.fail} component='div'/>
               
                     { isSubmitting? <div>loading....</div>: ``}
