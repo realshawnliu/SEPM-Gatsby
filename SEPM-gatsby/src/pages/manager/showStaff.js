@@ -12,7 +12,7 @@ const InfoWrap = styled.div`
   margin: 20px;
 `
 
-const NameEmail =styled.div`
+const NameEmail = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -70,28 +70,40 @@ export default function ShowStaff({ userData }) {
           return (
             <>
               <InfoWrap>
-                <h4>
-                  Name : {firstName} {lastName}
-                </h4>
-
-                <p>
-                  <b>Email:</b> {email}
-                </p>
+                <h1> Staff List : </h1>
+                <NameEmail>
+                  <div><p>Name : {firstName} {lastName}</p></div>
+                  <div><p><b>Email:</b> {email}</p></div>
+                </NameEmail>
               </InfoWrap>
             </>
           )
+
         }
-        return (
-          <>
-            <InfoWrap>
-              <h1> Staff List : </h1>
-              <NameEmail>
-                <div><p>Name : {firstName} {lastName}</p></div>
-                <div><p><b>Email:</b> {email}</p></div>
-              </NameEmail>
-            </InfoWrap>
-          </>
-        )
+        // return (
+        //   <>
+        //     <InfoWrap>
+        //       <h1> Staff List : </h1>
+        //       <NameEmail>
+        //         <div><p>Name : {firstName} {lastName}</p></div>
+        //         <div><p><b>Email:</b> {email}</p></div>
+        //       </NameEmail>
+        //     </InfoWrap>
+        //   </>
+        // )
+        // return (
+        //   <>
+        //     <InfoWrap>
+        //       <h4>
+        //         Name : {firstName} {lastName}
+        //       </h4>
+
+        //       <p>
+        //         <b>Email:</b> {email}
+        //       </p>
+        //     </InfoWrap>
+        //   </>
+        // )
       })}
     </>
   )

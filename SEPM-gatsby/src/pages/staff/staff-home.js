@@ -25,7 +25,7 @@ const BtnBox = styled.div`
     margin: 20px;
 `
 
-const NotifyMsg =styled.div`
+const NotifyMsg = styled.div`
   border: 1px solid rgba(254, 254, 254,.3);
   border-radius: 10px;
   background: rgba(153, 204, 255, 0.7);
@@ -37,11 +37,11 @@ export default function StaffHome() {
   const userID = window.userData.user_id
   let needNotify = window.userData.annual_notify
   let output = {}
-  let message =``;
+  let message = ``;
 
   if (needNotify === true) {
     console.log("you have not taken any annual within a year")
-   message = `you have not take any annual within a year`;
+    message = `you have not take any annual within a year`;
     output.classes = style.success
   }
 
@@ -53,25 +53,25 @@ export default function StaffHome() {
       <Layout />
       <Wrap>
         <h1>Welcome {window.userData.first_name}</h1>
-          <BtnBox>
+        <BtnBox>
           <div>
             {window.userData.role_admin ?
-              <Link className= {style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
+              <Link className={style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
             }
           </div>
           <div>
             {window.userData.role_manager ?
-              <Link className ={style.switchBtn} to={`/manager/manager-home/`} >switch to manager </Link> : ''
+              <Link className={style.switchBtn} to={`/manager/manager-home/`} >switch to manager </Link> : ''
             }
           </div>
-          </BtnBox>
+        </BtnBox>
 
-          <NotifyMsg>{message}</NotifyMsg>
-        <ShowBalance userData={window.userData}/>
+        <NotifyMsg>{message}</NotifyMsg>
+        <ShowBalance userData={window.userData} />
 
       </Wrap>
 
     </Main>
-      
+
   )
 }
