@@ -83,42 +83,35 @@ const StaffRequest2 = () => {
     <div className="mb-2">
       <Wrapper>
         <Layout />
-     
+
         <FormWrap>
           <Formik
             initialValues={{
-              typeOfLeave:``
+              typeOfLeave: ``
 
             }}
 
             validate={(values) => {
-              let errors= {}
-
-              if(!values.leaveStartDate){
-                  errors.leaveStartDate=`Leave start date cannot be empty`
+              let errors = {}
+              if (!values.typeOfLeave) {
+                errors.typeOfLeave = `Please choose a leave type`
               }
-              else if(!values.leaveEndDate){
-                  errors.leaveEndDate = `Leave End date cannot be empty`
-              }
-              else if(!values.typeOfLeave){
-                  errors.typeOfLeave = `Please choose a leave type`
-              }
-              return errors 
+              return errors
             }}
 
-            onSubmit={ async (values, actions,e) => {
-             
+            onSubmit={async (values, actions, e) => {
+
               console.log("click")
               console.log(userID);
 
               var correctFormatID = userID
-              let output={};
+              let output = {};
 
               console.log(leaveStartDate);
               console.log(leaveEndDate);
               console.log(values.typeOfLeave);
 
-              try{
+              try {
                 await addLeaveRequest({
                   variables: {
                     user_id: correctFormatID,
@@ -135,58 +128,58 @@ const StaffRequest2 = () => {
                     sent = true;
                   })
               }
-              catch(err){
-                output.message = err.graphQLErrors[0].message 
+              catch (err) {
+                output.message = err.graphQLErrors[0].message
                 console.log(output.message)
-                output.type=`error`
+                output.type = `error`
                 output.classes = style.fail
               }
 
-              if (sent === true ){
-                output.message=`Request successfully submitted`
-                output.type=`success`
+              if (sent === true) {
+                output.message = `Request successfully submitted`
+                output.type = `success`
                 output.classes = style.success
                 actions.resetForm()
               }
-            actions.setStatus(output)
-            actions.setSubmitting(true)
-        
-          }}
+              actions.setStatus(output)
+              actions.setSubmitting(true)
+
+            }}
           >
 
             {({ isSubmitting, status, handleChange, handleBlur, values }) => (
 
               <Form>
                 <h1>Enter the Details of leave</h1>
-                  <label><b>Leave Start</b></label>
-                  <DatePicker className={style.input} selected={leaveStartDate} name="leaveStartDate" onChange={date=> setLeaveStartDate(date)}/>
-                  <label><b>Leave End</b></label>
-                  <DatePicker className={style.input}  selected={leaveEndDate} name="leaveEndDate" onChange={date => setLeaveEndDate(date)}/>
-                  <label><b>Leave Type</b></label>
-                  <Field
-                    as="select"
-                    className={style.input}
-                    name="typeOfLeave" 
-                    component="select"
-                    values={values.typeOfLeave}
-                    onChange={handleChange}
+                <label><b>Leave Start</b></label>
+                <DatePicker className={style.input} selected={leaveStartDate} name="leaveStartDate" onChange={date => setLeaveStartDate(date)} />
+                <label><b>Leave End</b></label>
+                <DatePicker className={style.input} selected={leaveEndDate} name="leaveEndDate" onChange={date => setLeaveEndDate(date)} />
+                <label><b>Leave Type</b></label>
+                <Field
+                  as="select"
+                  className={style.input}
+                  name="typeOfLeave"
+                  component="select"
+                  values={values.typeOfLeave}
+                  onChange={handleChange}
                 >
-                    <option value="" label="select leave type"/>    
-                    {radios.map((ele) => {
-                        return(
-                            <option key={ele.unqiueId} value={ele.value} label={ele.name}/>
-                        )
-                    })}
-                  </Field>
-                     <button className={style.submitBtn} type="submit" disabled={isSubmitting}>
-                       Submit
+                  <option value="" label="select leave type" />
+                  {radios.map((ele) => {
+                    return (
+                      <option key={ele.unqiueId} value={ele.value} label={ele.name} />
+                    )
+                  })}
+                </Field>
+                <button className={style.submitBtn} type="submit" disabled={isSubmitting}>
+                  Submit
                     </button>
-                  <ErrorMessage name='leaveStartDate' className={style.fail} component='div'/>        
-                  <ErrorMessage name='leaveEndDate' className={style.fail} component='div'/>
-              
-                    { isSubmitting? <div>loading....</div>: ``}
-                    {status && <div className={status.classes}>{status.message}</div>}
-                 
+                <ErrorMessage name='leaveStartDate' className={style.fail} component='div' />
+                <ErrorMessage name='leaveEndDate' className={style.fail} component='div' />
+
+                { isSubmitting ? <div>loading....</div> : ``}
+                {status && <div className={status.classes}>{status.message}</div>}
+
               </Form>
             )}
           </Formik>
