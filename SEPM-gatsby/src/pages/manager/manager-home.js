@@ -92,12 +92,12 @@ export default function ManagerHome() {
           <BtnBox>
             <div>
               {window.userData.role_admin ?
-                <Link className= {style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
+                <Link className={style.switchBtn} to={`/admin/admin-home/`}>switch to admin </Link> : ''
               }
             </div>
 
             <div>
-              <Link className= {style.switchBtn} to={`/staff/staff-home/`}>switch to staff </Link>
+              <Link className={style.switchBtn} to={`/staff/staff-home/`}>switch to staff </Link>
             </div>
           </BtnBox>
 
