@@ -117,6 +117,7 @@ const StaffRequest2 = () => {
               console.log(leaveStartDate);
               console.log(leaveEndDate);
               console.log(values.typeOfLeave);
+              await new Promise ((r) => setTimeout(r,500));
 
               try{
                 await addLeaveRequest({
@@ -209,7 +210,7 @@ const StaffRequest2 = () => {
                     </button>
 
                   <ErrorMessage name='leaveStartDate' className={style.fail} component='div'/>        
-                  <ErrorMessage name='leaveEndDate' className={style.fail} component='div'/>
+                  <ErrorMessage name='typeOfLeave' className={style.fail} component='div'/>
               
                     { isSubmitting? <div>loading....</div>: ``}
                     {status && <div className={status.classes}>{status.message}</div>}
