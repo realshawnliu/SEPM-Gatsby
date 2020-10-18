@@ -7,13 +7,27 @@ const InfoWrap = styled.div`
   background: transparent;
   width: 100%;
   margin-bottom: 1em;
+  border: white solid 1px;
+  border-radius: 5px;
+  padding: 20px;
 `
 const CancelBtn = styled.button`
-  background: #f53f87;
+  background: rgba(233,128,128, 0.5);
   border: none;
   border-radius: 4px;
   color: white;
   margin: 1em;
+
+  &:hover{
+    background: rgba(240,71,71);
+    -o-transition:color .2s ease-out;
+    -ms-transition:color .2s ease-out;
+    -moz-transition:color .2s ease-out;
+    -webkit-transition:color .2s ease-out;
+    /* ...and now override with proper CSS property */
+    transition:color .2s ease-out;
+
+  }
 `
 
 const BtnBox = styled.div`

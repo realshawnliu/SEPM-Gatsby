@@ -23,12 +23,17 @@ const MainWrap = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+
 `
 
 const RequestWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
+`
+const Nothing = styled.div`
+  height: 0.1px;
+  width: 0.1 px;
 `
 
 const ALL_USER = gql`
@@ -43,6 +48,17 @@ const ALL_USER = gql`
 }
 `
 
+const StaffAnnunalBox = styled.div`
+  border: 1px solid rgba(254, 254, 254,.3);
+  border-radius: 10px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  padding: 10px;
+  margin: 20px;
+`
+
 export default function ManagerHome() {
   let output = {}
 
@@ -54,6 +70,7 @@ export default function ManagerHome() {
   // if (data) console.log(data)
 
   const userArray = data.user
+  let message =``;
 
 
   for (let i = 0; i < userArray.length; i++) {
@@ -83,10 +100,23 @@ export default function ManagerHome() {
               <Link className= {style.switchBtn} to={`/staff/staff-home/`}>switch to staff </Link>
             </div>
           </BtnBox>
+
           <RequestWrap>
             <ShowRequests userData={window.userData} />
           </RequestWrap>
         </MainWrap>
+        <StaffAnnunalBox>
+          <div><h3>Staff who hasn't taken any annual leave within a year </h3></div>
+          {userArray.map((user) => { 
+            return(
+              <>
+                { user.annual_notify === true && user.manager_id === managerID ? 
+                <div><p>Name: {user.first_name}{user.last_name}</p></div> : <Nothing></Nothing>
+                }
+              </>
+            )
+          })}   
+         </StaffAnnunalBox>
         
        
       </Wrapper>

@@ -53,6 +53,11 @@ h1{
     font-family: "Raleway";
 }
 
+h3{
+    color: #fff;
+    font-family: "Quicksand";
+}
+
 button{
     background: transparent;
     border-radius: 5px;
@@ -65,8 +70,15 @@ button{
 
 .submitBtn:hover{
     background: rgba(255,255,255, 0.3);
+    -o-transition:color .2s ease-out;
+    -ms-transition:color .2s ease-out;
+    -moz-transition:color .2s ease-out;
+    -webkit-transition:color .2s ease-out;
+    /* ...and now override with proper CSS property */
+    transition:color .2s ease-out;
 
 }
+
 
 label{
     color: #fff;
@@ -83,6 +95,7 @@ link:hover{
     text-decoration: none;
     color: #958E8E;
     font-family: "Quicksand";
+
 
 }
 
