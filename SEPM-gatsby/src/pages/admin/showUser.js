@@ -1,11 +1,11 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
-import React, {useState} from "react"
-import{ Link} from "gatsby"
+import React, { useState } from "react"
+import { Link } from "gatsby"
 import styled from "styled-components"
 import style from "../admin/showUser.module.css"
 
 //styling
-const TextInfo= styled.div`
+const TextInfo = styled.div`
   display:flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -36,18 +36,15 @@ const DeactivateBtn = styled.button`
   &:hover{
     background: rgba(240, 116, 112, 0.5);
   }
-
-
 `
 
-const RoleBox =styled.div`
+const RoleBox = styled.div`
   display:flex;
   flex-direction: row;
 `
 
 const BtnBox = styled.div`
   display: flex;
- 
 `
 
 const USERS_LIST = gql`
@@ -80,15 +77,15 @@ mutation($user_id: uuid!, $role_admin: Boolean!, $role_manager: Boolean!, $manag
 }
 `
 
-export default function ShowHistory() {
-  const[role, setRole] =useState("");
+export default function ShowHistory({ userData }) {
+  const [role, setRole] = useState("");
   const [deactive] = useMutation(DEACTIVATE_USER);
-  const[updateRole] = useMutation(UPDATE_ROLE);
+  const [updateRole] = useMutation(UPDATE_ROLE);
 
   const { loading, error, data } = useQuery(USERS_LIST)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
- 
+
 
   return (
     <>
@@ -101,7 +98,7 @@ export default function ShowHistory() {
         const isManager = req.role_manager
         const isActive = req.acct_active
         const managerID = req.manager_id
-        
+
 
         // console.log(userID)
         // console.log(last)
@@ -115,8 +112,10 @@ export default function ShowHistory() {
                 <p>
                   <b>Name</b> : {firstName} {lastName}
                 </p>
-  
-                <div className={style.falseRole}>{isAdmin && isManager? " admin & manager " : isAdmin? "admin" : isManager? "manager" : "staff" }</div>
+
+                <div className={style.falseRole}>{isAdmin && isManager ? 
+                " admin & manager " : isAdmin ? "admin" : isManager ? 
+                "manager" : "staff"}</div>
 
                 <p>
                   <b>Email:</b> {email}
@@ -140,8 +139,8 @@ export default function ShowHistory() {
                         .then(data => {
                           console.log(
                             "user " +
-                              "068dfbe3-e725-4ab2-aac9-307dd6659b22" +
-                              "has been deactivate"
+                            userID +
+                            "has been deactivate"
                           )
                         })
                         .catch(e => {
@@ -152,17 +151,17 @@ export default function ShowHistory() {
                     {" "}
                     Deactivate
                   </DeactivateBtn>
-                  <Link 
-                    className={style.changeRole} 
+                  <Link
+                    className={style.changeRole}
                     to="/admin/changeRolePage/"
-                    state={{user: userID}}
-                  
+                    state={{ user: userID }}
+
                   >Change Role</Link>
 
                 </BtnBox>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </InfoWrap>
           </>
         )

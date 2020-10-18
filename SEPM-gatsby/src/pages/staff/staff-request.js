@@ -49,7 +49,6 @@ const LEAVE_REQUEST = gql`
   }
 `
 
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;

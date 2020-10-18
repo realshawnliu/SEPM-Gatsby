@@ -18,22 +18,45 @@ const NameEmail =styled.div`
   justify-content: space-evenly;
 `
 
-const manager_user_id = "\"068dfbe3-e725-4ab2-aac9-307dd6659b22\"";
 const EMPLOYEES_LIST = gql`
 {
-  user(where: {manager_id: {_eq: ${manager_user_id}}}){
-    first_name
+  user {
+    manager_id
     last_name
+    first_name
     email
   }
 }
 `;
 
 
-export default function ShowHistory() {
+export default function ShowStaff({ userData }) {
+  const userID = userData.user_id
+
   const { loading, error, data } = useQuery(EMPLOYEES_LIST)
   if (loading) return "loading..."
   if (error) return `Error! ${error.message}`
+  if (data) console.log(data)
+
+  let hasStaff = false;
+
+  for (let i = 0; i < data.user.length; i++) {
+    console.log("managerID:      " + userID)
+    console.log("staffManagerID: " + data.user[i].manager_id)
+    console.log(" ")
+
+    if (userID === data.user[i].manager_id) {
+      hasStaff = true
+    }
+  }
+
+  if (hasStaff === false) {
+    return (
+      <InfoWrap>
+        <p>no staff</p>
+      </InfoWrap>
+    )
+  }
 
   return (
     <>
@@ -41,7 +64,23 @@ export default function ShowHistory() {
         const firstName = req.first_name
         const lastName = req.last_name
         const email = req.email
+        const staffManagerID = req.manager_id
 
+        if (staffManagerID === userID) {
+          return (
+            <>
+              <InfoWrap>
+                <h4>
+                  Name : {firstName} {lastName}
+                </h4>
+
+                <p>
+                  <b>Email:</b> {email}
+                </p>
+              </InfoWrap>
+            </>
+          )
+        }
         return (
           <>
             <InfoWrap>

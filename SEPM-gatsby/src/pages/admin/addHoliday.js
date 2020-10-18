@@ -60,6 +60,7 @@ const GET_Holiday = gql`
 
 const AddHoliday = ({location}) => {
     const [startDate, setStartDate] = useState(new Date());
+
     var isSent = false;
 
 
@@ -125,7 +126,6 @@ const AddHoliday = ({location}) => {
                     )}
                 </Formik>
             </Main>
-
 
             <>
                 {data.public_holiday.map(req => {

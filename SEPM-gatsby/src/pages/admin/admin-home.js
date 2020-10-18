@@ -46,7 +46,7 @@ export default function AdminHome() {
           </div>
           </BtnBox>
 
-        <ShowUser/>
+        <ShowUser userData={window.userData}/>
       </ MainWrap>
     </ BigWrap>
   )
