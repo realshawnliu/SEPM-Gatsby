@@ -4,23 +4,41 @@ import styled from "styled-components"
 
 //styling
 const InfoWrap = styled.div`
-  background: #cfb7db;
-  width: 100%;
+  background: transparent;
+  width: 80%;
   margin-bottom: 1em;
+  display:flex;
+  flex-direction: column;
+  border-raidus: 5px;
+  border: 1px solid rgba(254, 254, 254,.3);
+  padding: 10px;
 `
 const ApproveBtn = styled.button`
-  background: #3fc4f5;
-  border: none;
+  background: transparent;
+  border: solid white 1px;
   border-radius: 4px;
   color: white;
   margin: 1em;
+  transition: 0.3s;
+
+  &:hover{
+    background: rgba(168,218,168, 0.6);
+
+  }
 `
 const RejectBtn = styled.button`
-  background: #f53f87;
-  border: none;
+  background: transparent;
+  border: solid white 1px;
   border-radius: 4px;
-  color: white;
+  color: red;
   margin: 1em;
+  transition: 0.3s;
+
+  &:hover{
+    background: rgba(235,60,60, 0.6);
+    color: white;
+
+}
 `
 
 const BtnBox = styled.div`
@@ -28,7 +46,8 @@ const BtnBox = styled.div`
 `
 const DateBox = styled.div`
   display: flex;
-  flex-direction: space-evenly;
+  width: 100%;
+  flex-direction: space-around;
 `
 
 
@@ -134,31 +153,47 @@ export default function ShowRequests({ userData }) {
                   </p>
                 </DateBox>
 
-                <p>
-                  <b>Status:</b> {status}
-                </p>
-                <p>
-                  {" "}
-                  <b>requested on:</b> {requestDate}
-                </p>
-                <p>
-                  <b>no. of days:</b> {days}
-                </p>
-                <p>
-                  <b>Leave type:</b> {type}
-                </p>
+        return (
+          <>
+            <InfoWrap key={leaveID}>
+              <p>
+                Name : {firstName} {lastName}
+              </p>
+              <DateBox>
+                <div><p><b>From: </b> {fromDate}</p></div>
+                <div><p><b>To: </b> {toDate}{" "}</p></div>
+              </DateBox>
 
-                {status == "PENDING" ? (
-                  <BtnBox>
-                    <ApproveBtn
-                      onClick={e => {
-                        console.log("approve clicked")
-                        console.log("about to approve request for: " + leaveID)
-                        e.preventDefault()
-                        approveRequest({
-                          variables: {
-                            leave_id: leaveID,
-                          },
+              <p>
+                <b>Status:</b> {status}
+              </p>
+              <p>
+                {" "}
+                <b>requested on:</b> {requestDate}
+              </p>
+              <p>
+                <b>no. of days:</b> {days}
+              </p>
+              <p>
+                <b>Leave type:</b> {type}
+              </p>
+
+              {status == "PENDING" ? (
+                <BtnBox>
+                  <ApproveBtn
+                    onClick={e => {
+                      e.preventDefault()
+                      approveRequest({
+                        variables: {
+                          leave_id: leaveID,
+                        },
+                      })
+                        .then(data => {
+                          console.log("leave id" + leaveID + "request approved")
+                        })
+                        .catch(e => {
+                          console.log(e)
+
                         })
                           .then(data => {
                             console.log("leave id" + leaveID + "request approved")

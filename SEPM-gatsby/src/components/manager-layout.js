@@ -1,35 +1,31 @@
 import React from "react"
-// import { css } from "@emotion/core"
+import styled from "styled-components";
 import { Link } from "gatsby"
-// import { Col, Container, Row } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { ProSidebar, Menu, MenuItem, 
-  // SubMenu 
-} from "react-pro-sidebar"
 import "react-pro-sidebar/dist/css/styles.css"
-import { SidebarHeader, 
-  // SidebarFooter, 
-  // SidebarContent 
-} from "react-pro-sidebar"
+import style from "../components/layout.module.css";
+import { SidebarHeader} from "react-pro-sidebar"
+
+const SideBar = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.8);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+`
+
 
 export default function ManagerLayout({ children }) {
   return (
     <div className="row">
       <div className="column left">
-        <ProSidebar>
-          <SidebarHeader>Manager Page</SidebarHeader>
-          <Menu iconShape="square">
-            <MenuItem>
-              <Link to={`/manager/manager-home/`}>Home</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to={`/manager/manager-stafflist/`}>Staff List</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to={`/`}>login page</Link>
-            </MenuItem>
-          </Menu>
-        </ProSidebar>
+        <SideBar>
+        <SidebarHeader>Manager Page</SidebarHeader>
+            <Link className={style.link}  to={`/manager/manager-home/`}>Home</Link>
+            <Link className={style.link}  to={`/manager/manager-stafflist/`}>Staff List</Link>
+            <Link className={style.link}  to={`/`}>login page</Link>
+        </SideBar>
       </div>
 
       <div className="column right">{children}</div>

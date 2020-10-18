@@ -213,7 +213,6 @@ const CreateAccount = props => {
                                     // onBlur={handleBlur}
                                 >
                                     <option value="" label="select manager id"/>
-                                    <option value="abcde" label="abcde"/>
                                     {data.user.map((ele) => {
                                         return(
                                             <option key={ele.user_id} value={ele.user_id} label={ele.user_id}/>

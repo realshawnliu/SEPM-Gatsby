@@ -4,20 +4,18 @@ import styled from "styled-components"
 
 //styling
 const InfoWrap = styled.div`
-  background: #cfb7db;
+  background: transparent;
   width: 100%;
   margin-bottom: 1em;
-`
-const DeactivateBtn = styled.button`
-  background: #f53f87;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
 `
 
-const BtnBox = styled.div`
+const NameEmail =styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 `
 
 const EMPLOYEES_LIST = gql`
@@ -83,7 +81,17 @@ export default function ShowStaff({ userData }) {
             </>
           )
         }
-
+        return (
+          <>
+            <InfoWrap>
+              <h1> Staff List : </h1>
+              <NameEmail>
+                <div><p>Name : {firstName} {lastName}</p></div>
+                <div><p><b>Email:</b> {email}</p></div>
+              </NameEmail>
+            </InfoWrap>
+          </>
+        )
       })}
     </>
   )
