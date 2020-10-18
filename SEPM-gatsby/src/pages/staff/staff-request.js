@@ -99,7 +99,18 @@ const StaffRequest2 = () => {
               return errors
             }}
 
+
+            validate={(values) => {
+              let errors= {}
+
+            if(!values.typeOfLeave){
+                  errors.typeOfLeave = `Please choose a leave type`
+              }
+              return errors 
+            }}
+
             onSubmit={async (values, actions, e) => {
+
 
               console.log("click")
               console.log(userID);

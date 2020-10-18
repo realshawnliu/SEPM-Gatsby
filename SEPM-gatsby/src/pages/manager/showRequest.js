@@ -1,6 +1,7 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import React from "react"
 import styled from "styled-components"
+import style from "../admin/createAccount.module.css";
 
 //styling
 const InfoWrap = styled.div`
@@ -90,7 +91,9 @@ const REJECT_LEAVE_REQUEST = gql`
 
 export default function ShowRequests({ userData }) {
   const userID = userData.user_id
-
+  let output = {};
+  let out = false;
+  let isSuccess = false;
   const [approveRequest] = useMutation(APPROVE_LEAVE_REQUEST)
   const [rejectRequest] = useMutation(REJECT_LEAVE_REQUEST)
 
@@ -122,6 +125,8 @@ export default function ShowRequests({ userData }) {
 
   return (
     <>
+      {out === true ? output.type === `reject`? <div>request rejected</div> : <div>request approved</div> : <div></div>}
+      
       {data.leave_request.map(req => {
         const fromDate = req.from
         const toDate = req.to
@@ -137,6 +142,7 @@ export default function ShowRequests({ userData }) {
 
         if (staffManagerID === userID) {
           return (
+
             <>
               <InfoWrap key={leaveID}>
                 <p>
@@ -165,6 +171,7 @@ export default function ShowRequests({ userData }) {
                   <BtnBox>
                     <ApproveBtn
                       onClick={e => {
+                        out = true;
                         e.preventDefault()
                         approveRequest({
                           variables: {
@@ -173,9 +180,17 @@ export default function ShowRequests({ userData }) {
                         })
                           .then(data => {
                             console.log("leave id" + leaveID + "request approved")
+                            output.classes = style.success
+                            output.type=`approve`
+                            output.message=`request approved`
+                            isSuccess = true;
+                            out = true;
                           })
                           .catch(e => {
                             console.log(e)
+                            output.classes = style.fail
+                            output.type=`error`
+                            output.message = e.graphQLErrors[0].message 
                           })
                       }}
                     >
@@ -194,7 +209,12 @@ export default function ShowRequests({ userData }) {
                           .then(data => {
                             console.log(
                               "leave id " + leaveID + "request rejected"
+                  
                             )
+                            out = true;
+                            output.classes = style.success
+                            output.type=`reject`
+                            output.message=`request rejected`
                           })
                           .catch(e => {
                             console.log(e)
@@ -204,17 +224,19 @@ export default function ShowRequests({ userData }) {
                       {" "}
                     Reject
                   </RejectBtn>
+                  
                   </BtnBox>
                 ) : (
                     ""
                   )}
+
               </InfoWrap>
+              
             </>
           )
         }
-
-
       })}
+
     </>
   )
 }
