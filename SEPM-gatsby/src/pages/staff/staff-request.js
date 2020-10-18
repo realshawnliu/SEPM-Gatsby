@@ -79,11 +79,6 @@ const StaffRequest2 = () => {
     { name: "blood_donor", value: "2e58c789-b8b8-41ce-9d01-0a6d54cc7d39" },
   ]
 
-  const inputDates = (startDate, endDate) => {
-
-
-  }
-
   return (
     <div className="mb-2">
       <Wrapper>
@@ -96,20 +91,20 @@ const StaffRequest2 = () => {
 
             }}
 
-            // validate={(values) => {
-            //   let errors= {}
+            validate={(values) => {
+              let errors= {}
 
-            //   if(!values.leaveStartDate){
-            //       errors.leaveStartDate=`Leave start date cannot be empty`
-            //   }
-            //   else if(!values.leaveEndDate){
-            //       errors.leaveEndDate = `Leave End date cannot be empty`
-            //   }
-            //   else if(!values.typeOfLeave){
-            //       errors.typeOfLeave = `Please choose a leave type`
-            //   }
-            //   return errors 
-            // }}
+              if(!values.leaveStartDate){
+                  errors.leaveStartDate=`Leave start date cannot be empty`
+              }
+              else if(!values.leaveEndDate){
+                  errors.leaveEndDate = `Leave End date cannot be empty`
+              }
+              else if(!values.typeOfLeave){
+                  errors.typeOfLeave = `Please choose a leave type`
+              }
+              return errors 
+            }}
 
             onSubmit={ async (values, actions,e) => {
              
@@ -163,19 +158,11 @@ const StaffRequest2 = () => {
 
               <Form>
                 <h1>Enter the Details of leave</h1>
-            
                   <label><b>Leave Start</b></label>
-                 
                   <DatePicker className={style.input} selected={leaveStartDate} name="leaveStartDate" onChange={date=> setLeaveStartDate(date)}/>
-                  
-            
                   <label><b>Leave End</b></label>
-
                   <DatePicker className={style.input}  selected={leaveEndDate} name="leaveEndDate" onChange={date => setLeaveEndDate(date)}/>
-                  
-                  
                   <label><b>Leave Type</b></label>
-
                   <Field
                     as="select"
                     className={style.input}
@@ -191,28 +178,9 @@ const StaffRequest2 = () => {
                         )
                     })}
                   </Field>
-
-                    {/* {radios.map(radio => (
-                      <ButtonGroup toggle className="mb-3">
-                       
-                          <Field
-                            className={style.input}
-                            type="radio"
-                            key={radio.uniqueId}
-                            name="tyepOfLeave"
-                            value={radio.value}
-                            // checked={radioValue === radio.value}
-                            onChange={handleChange}
-                          ></Field>
-                          {radio.name}
-                        
-                      </ButtonGroup>
-                    ))} */}
-
                      <button className={style.submitBtn} type="submit" disabled={isSubmitting}>
                        Submit
                     </button>
-
                   <ErrorMessage name='leaveStartDate' className={style.fail} component='div'/>        
                   <ErrorMessage name='leaveEndDate' className={style.fail} component='div'/>
               
@@ -222,7 +190,6 @@ const StaffRequest2 = () => {
               </Form>
             )}
           </Formik>
-          
         </FormWrap>
       </Wrapper>
     </div>
