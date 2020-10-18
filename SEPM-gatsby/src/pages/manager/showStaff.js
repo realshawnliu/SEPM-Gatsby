@@ -1,4 +1,4 @@
-import { gql, useQuery, useMutation } from "@apollo/client"
+import { gql, useQuery } from "@apollo/client"
 import React from "react"
 import styled from "styled-components"
 
@@ -28,7 +28,6 @@ const EMPLOYEES_LIST = gql`
   }
 }
 `;
-
 
 export default function ShowStaff({ userData }) {
   const userID = userData.user_id
@@ -60,6 +59,9 @@ export default function ShowStaff({ userData }) {
 
   return (
     <>
+      <InfoWrap>
+        <h2> Staff List : </h2>
+      </InfoWrap>
       {data.user.map(req => {
         const firstName = req.first_name
         const lastName = req.last_name
@@ -70,7 +72,6 @@ export default function ShowStaff({ userData }) {
           return (
             <>
               <InfoWrap>
-                <h1> Staff List : </h1>
                 <NameEmail>
                   <div><p>Name : {firstName} {lastName}</p></div>
                   <div><p><b>Email:</b> {email}</p></div>
@@ -80,30 +81,6 @@ export default function ShowStaff({ userData }) {
           )
 
         }
-        // return (
-        //   <>
-        //     <InfoWrap>
-        //       <h1> Staff List : </h1>
-        //       <NameEmail>
-        //         <div><p>Name : {firstName} {lastName}</p></div>
-        //         <div><p><b>Email:</b> {email}</p></div>
-        //       </NameEmail>
-        //     </InfoWrap>
-        //   </>
-        // )
-        // return (
-        //   <>
-        //     <InfoWrap>
-        //       <h4>
-        //         Name : {firstName} {lastName}
-        //       </h4>
-
-        //       <p>
-        //         <b>Email:</b> {email}
-        //       </p>
-        //     </InfoWrap>
-        //   </>
-        // )
       })}
     </>
   )
