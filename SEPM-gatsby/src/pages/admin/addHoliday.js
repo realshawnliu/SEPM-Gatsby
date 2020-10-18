@@ -90,6 +90,7 @@ const AddHoliday = ({location}) => {
                         date: '',
 
                     }}
+
                     onSubmit={async (values, actions) => {
                         await new Promise((r) => setTimeout(r, 500));
                         console.log(startDate);
