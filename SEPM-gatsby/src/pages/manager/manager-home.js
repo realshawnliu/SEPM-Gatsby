@@ -102,8 +102,10 @@ export default function ManagerHome() {
           </BtnBox>
 
           <RequestWrap>
+            <h1>Staff leave request</h1>
             <ShowRequests userData={window.userData} />
           </RequestWrap>
+
         </MainWrap>
         <StaffAnnunalBox>
           <div><h3>Staff who hasn't taken any annual leave within a year </h3></div>
