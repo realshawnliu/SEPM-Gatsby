@@ -97,20 +97,14 @@ const StaffRequest2 = () => {
             }}
 
 
-            // validate={(values) => {
-            //   let errors= {}
+            validate={(values) => {
+              let errors= {}
 
-            //   if(!values.leaveStartDate){
-            //       errors.leaveStartDate=`Leave start date cannot be empty`
-            //   }
-            //   else if(!values.leaveEndDate){
-            //       errors.leaveEndDate = `Leave End date cannot be empty`
-            //   }
-            //   else if(!values.typeOfLeave){
-            //       errors.typeOfLeave = `Please choose a leave type`
-            //   }
-            //   return errors 
-            // }}
+            if(!values.typeOfLeave){
+                  errors.typeOfLeave = `Please choose a leave type`
+              }
+              return errors 
+            }}
 
             onSubmit={ async (values, actions,e) => {
              
